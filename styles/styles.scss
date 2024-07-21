@@ -1,0 +1,288 @@
+:root {
+    --red: #db0000;
+    --green: #007f51;
+    --blue: #006cdc;
+    --purple: #5b4ff5;
+    --orange: #ff5733;
+    --burgundy: #500c4b;
+    --midnight-blue: #022049;
+    --ocean: #1b5b68;
+    --light-grey: #dcdcdc;
+    --dark-grey: #525252;
+    --grey: #a8a8a8;
+    --black: #000000;
+}
+
+$colors: (
+    "green": var(--green),
+    "red": var(--red),
+    "blue": var(--blue),
+    "purple": var(--purple),
+    "orange": var(--orange),
+    "burgundy": var(--burgundy),
+    "crimson": var(--crimson),
+    "midnight-blue": var(--midnight-blue),
+    "ocean": var(--ocean),
+    "light-grey": var(--light-grey),
+    "dark-grey": var(--dark-grey),
+    "grey": var(--grey),
+    "black": var(--black),
+);
+
+.custom-element {
+    font-family: Inter, sans-serif;
+}
+
+.section {
+    border: 1px solid var(--light-grey);
+    border-radius: 16px;
+    padding: 24px;
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            border-color: $color-value
+        }
+    }
+}
+
+.section.info {
+    background-color: color-mix(in srgb, var(--grey) 10%, transparent);
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            background-color: color-mix(in srgb, $color-value 10%, transparent)
+        }
+    }
+}
+
+.button {
+    height: 36px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0px 22px;
+    border: 2px solid var(--black);
+    border-radius: 5000px;
+    color: var(--black);
+    width: fit-content;
+    align-content: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1ch;
+    line-height: 18px;
+    transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--black) 20%, transparent);
+    }
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            border: 2px solid $color-value;
+
+            &:hover {
+                background-color: color-mix(in srgb, $color-value 20%, transparent);
+            }
+        }
+    }
+}
+
+.button.full {
+    border-color: var(--purple);
+    color: white;
+    background-color: var(--purple);
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            background-color: $color-value;
+            border-color: $color-value;
+
+            &:hover {
+                background-color: color-mix(in srgb, var(--black) 20%, $color-value);
+                border-color: color-mix(in srgb, var(--black) 20%, $color-value);
+            }
+        }
+    }
+}
+
+.button.no-caps {
+    text-transform: none;
+}
+
+.status {
+    height: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0px 12px;
+    border: 1px solid black;
+    border-radius: 5000px;
+    color: black;
+    background: white;
+    width: fit-content;
+    align-content: center;
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            background: $color-value;
+            border-color: $color-value;
+            color: white;
+        }
+    }
+}
+
+.input[type="text"] {
+    font-size: 14px;
+    border-radius: 20px;
+    cursor: text;
+    border: 1px solid var(--grey);
+    transition: border-color 250ms cubic-bezier(0.23, 1, 0.32, 1) 50ms, color;
+    width: fit-content;
+    text-align: left;
+    padding: 10px 12px;
+    color: var(--black);
+
+    &:placeholder {
+        color: var(--light-grey);
+    }
+
+    &:active, &:focus-visible, &:hover {
+        border-color: var(--black);
+        border-width: 1px;
+        outline: none;
+    }
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            border-color: $color-value;
+
+            &:active, &:focus-visible, &:hover {
+                border-color: color-mix(in srgb, var(--black) 30%, $color-value)
+            }
+        }
+    }
+}
+
+.switch input, .checkbox input, .radio input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch {
+    display: flex;
+    height: 20px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.slider {
+    position: relative;
+    width: 36px;
+    background-color: var(--dark-grey);
+    transition: 250ms;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 250ms;
+    border-radius: 50%;
+}
+
+input:checked ~ .slider {
+    background-color: var(--purple);
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            background-color: $color-value
+        }
+    }
+}
+
+input:checked ~ .slider:before {
+    transform: translateX(16px);
+}
+
+.checkbox, .radio {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px 5px 5px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.radio-button, .checkmark {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 2px solid var(--grey);
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+.radio-button {
+    border-radius: 50%;
+}
+
+.checkbox:hover, .radio:hover {
+    background-color: #e6e6ff;
+    border-color: var(--purple);
+}
+
+.checkbox input:checked ~ .checkmark {
+    background-color: var(--purple);
+    border-color: var(--purple);
+}
+
+.radio input:checked ~ .radio-button {
+    border-color: var(--purple);
+    box-shadow: inset 0 0 0 4px var(--purple);
+}
+
+// custom checkmark
+.checkbox input:checked ~ .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox label, .radio label {
+    margin: 0;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    --dot-color: var(--purple);
+    --_c:no-repeat radial-gradient(farthest-side, var(--dot-color) 92%, transparent);
+    background: 
+      var(--_c) top,
+      var(--_c) left,
+      var(--_c) right,
+      var(--_c) bottom;
+    background-size: 12px 12px;
+    animation: halfRotation 1s infinite;
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            --dot-color: #{$color-value};
+        }
+    }
+  }
+  @keyframes halfRotation {to{transform: rotate(.5turn)}}
+
+  

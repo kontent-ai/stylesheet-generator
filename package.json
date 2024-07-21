@@ -1,0 +1,13 @@
+{
+  "name": "stylesheet-generator",
+  "version": "1.0.0",
+  "description": "A CLI tool to generate a CSS file with predefined custom styles, in line with Kontent.ai app design.",
+  "scripts": {
+    "convert": "sass styles/styles.scss styles/styles.css"
+  },
+  "author": "Daniel Pokorny",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.77.8"
+  }
+}
