@@ -1,7 +1,7 @@
 {
-  "name": "stylesheet-generator",
+  "name": "stylekit",
   "version": "1.0.0",
-  "description": "A CLI tool to generate a CSS file with predefined custom styles, in line with Kontent.ai app design.",
+  "description": "Predefined CSS for styling Kontent.ai custom elements and tools in line with application UI.",
   "scripts": {
     "convert": "sass styles/styles.scss styles/styles.css"
   },

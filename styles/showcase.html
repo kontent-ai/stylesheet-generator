@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Document</title>
+	<style>
+	       :root {
+	 --red: #db0000;
+	 --green: #007f51;
+	 --blue: #006cdc;
+	 --purple: #5b4ff5;
+	 --orange: #ff5733;
+	 --burgundy: #500c4b;
+	 --midnight-blue: #022049;
+	 --ocean: #1b5b68;
+	 --light-grey: #dcdcdc;
+	 --dark-grey: #525252;
+	 --grey: #a8a8a8;
+	 --black: #000000;
+	}
+
+	.custom-element, body, html {
+	 font-family: sans-serif;
+	}
+
+	.section {
+	 border: 1px solid var(--light-grey);
+	 border-radius: 16px;
+	 padding: 24px;
+	}
+	.section.green {
+	 border-color: var(--green);
+	}
+	.section.red {
+	 border-color: var(--red);
+	}
+	.section.blue {
+	 border-color: var(--blue);
+	}
+	.section.purple {
+	 border-color: var(--purple);
+	}
+	.section.orange {
+	 border-color: var(--orange);
+	}
+	.section.burgundy {
+	 border-color: var(--burgundy);
+	}
+	.section.crimson {
+	 border-color: var(--crimson);
+	}
+	.section.midnight-blue {
+	 border-color: var(--midnight-blue);
+	}
+	.section.ocean {
+	 border-color: var(--ocean);
+	}
+	.section.light-grey {
+	 border-color: var(--light-grey);
+	}
+	.section.dark-grey {
+	 border-color: var(--dark-grey);
+	}
+	.section.grey {
+	 border-color: var(--grey);
+	}
+	.section.black {
+	 border-color: var(--black);
+	}
+
+	.section.info {
+	 background-color: color-mix(in srgb, var(--grey) 10%, transparent);
+	}
+	.section.info.green {
+	 background-color: color-mix(in srgb, var(--green) 10%, transparent);
+	}
+	.section.info.red {
+	 background-color: color-mix(in srgb, var(--red) 10%, transparent);
+	}
+	.section.info.blue {
+	 background-color: color-mix(in srgb, var(--blue) 10%, transparent);
+	}
+	.section.info.purple {
+	 background-color: color-mix(in srgb, var(--purple) 10%, transparent);
+	}
+	.section.info.orange {
+	 background-color: color-mix(in srgb, var(--orange) 10%, transparent);
+	}
+	.section.info.burgundy {
+	 background-color: color-mix(in srgb, var(--burgundy) 10%, transparent);
+	}
+	.section.info.crimson {
+	 background-color: color-mix(in srgb, var(--crimson) 10%, transparent);
+	}
+	.section.info.midnight-blue {
+	 background-color: color-mix(in srgb, var(--midnight-blue) 10%, transparent);
+	}
+	.section.info.ocean {
+	 background-color: color-mix(in srgb, var(--ocean) 10%, transparent);
+	}
+	.section.info.light-grey {
+	 background-color: color-mix(in srgb, var(--light-grey) 10%, transparent);
+	}
+	.section.info.dark-grey {
+	 background-color: color-mix(in srgb, var(--dark-grey) 10%, transparent);
+	}
+	.section.info.grey {
+	 background-color: color-mix(in srgb, var(--grey) 10%, transparent);
+	}
+	.section.info.black {
+	 background-color: color-mix(in srgb, var(--black) 10%, transparent);
+	}
+
+	.button {
+	 height: 36px;
+	 font-size: 12px;
+	 font-weight: 700;
+	 padding: 0px 22px;
+	 border: 2px solid var(--black);
+	 border-radius: 5000px;
+	 color: var(--black);
+	 width: fit-content;
+	 align-content: center;
+	 cursor: pointer;
+	 text-transform: uppercase;
+	 letter-spacing: 0.1ch;
+	 line-height: 18px;
+	 transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
+	}
+	.button:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, transparent);
+	}
+	.button.green {
+	 border: 2px solid var(--green);
+	}
+	.button.green:hover {
+	 background-color: color-mix(in srgb, var(--green) 20%, transparent);
+	}
+	.button.red {
+	 border: 2px solid var(--red);
+	}
+	.button.red:hover {
+	 background-color: color-mix(in srgb, var(--red) 20%, transparent);
+	}
+	.button.blue {
+	 border: 2px solid var(--blue);
+	}
+	.button.blue:hover {
+	 background-color: color-mix(in srgb, var(--blue) 20%, transparent);
+	}
+	.button.purple {
+	 border: 2px solid var(--purple);
+	}
+	.button.purple:hover {
+	 background-color: color-mix(in srgb, var(--purple) 20%, transparent);
+	}
+	.button.orange {
+	 border: 2px solid var(--orange);
+	}
+	.button.orange:hover {
+	 background-color: color-mix(in srgb, var(--orange) 20%, transparent);
+	}
+	.button.burgundy {
+	 border: 2px solid var(--burgundy);
+	}
+	.button.burgundy:hover {
+	 background-color: color-mix(in srgb, var(--burgundy) 20%, transparent);
+	}
+	.button.crimson {
+	 border: 2px solid var(--crimson);
+	}
+	.button.crimson:hover {
+	 background-color: color-mix(in srgb, var(--crimson) 20%, transparent);
+	}
+	.button.midnight-blue {
+	 border: 2px solid var(--midnight-blue);
+	}
+	.button.midnight-blue:hover {
+	 background-color: color-mix(in srgb, var(--midnight-blue) 20%, transparent);
+	}
+	.button.ocean {
+	 border: 2px solid var(--ocean);
+	}
+	.button.ocean:hover {
+	 background-color: color-mix(in srgb, var(--ocean) 20%, transparent);
+	}
+	.button.light-grey {
+	 border: 2px solid var(--light-grey);
+	}
+	.button.light-grey:hover {
+	 background-color: color-mix(in srgb, var(--light-grey) 20%, transparent);
+	}
+	.button.dark-grey {
+	 border: 2px solid var(--dark-grey);
+	}
+	.button.dark-grey:hover {
+	 background-color: color-mix(in srgb, var(--dark-grey) 20%, transparent);
+	}
+	.button.grey {
+	 border: 2px solid var(--grey);
+	}
+	.button.grey:hover {
+	 background-color: color-mix(in srgb, var(--grey) 20%, transparent);
+	}
+	.button.black {
+	 border: 2px solid var(--black);
+	}
+	.button.black:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, transparent);
+	}
+
+	.button.full {
+	 border-color: var(--purple);
+	 color: white;
+	 background-color: var(--purple);
+	}
+	.button.full:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--purple));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--purple));
+	}
+	.button.full.green {
+	 background-color: var(--green);
+	 border-color: var(--green);
+	}
+	.button.full.green:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--green));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--green));
+	}
+	.button.full.red {
+	 background-color: var(--red);
+	 border-color: var(--red);
+	}
+	.button.full.red:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--red));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--red));
+	}
+	.button.full.blue {
+	 background-color: var(--blue);
+	 border-color: var(--blue);
+	}
+	.button.full.blue:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--blue));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--blue));
+	}
+	.button.full.purple {
+	 background-color: var(--purple);
+	 border-color: var(--purple);
+	}
+	.button.full.purple:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--purple));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--purple));
+	}
+	.button.full.orange {
+	 background-color: var(--orange);
+	 border-color: var(--orange);
+	}
+	.button.full.orange:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--orange));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--orange));
+	}
+	.button.full.burgundy {
+	 background-color: var(--burgundy);
+	 border-color: var(--burgundy);
+	}
+	.button.full.burgundy:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--burgundy));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--burgundy));
+	}
+	.button.full.crimson {
+	 background-color: var(--crimson);
+	 border-color: var(--crimson);
+	}
+	.button.full.crimson:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--crimson));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--crimson));
+	}
+	.button.full.midnight-blue {
+	 background-color: var(--midnight-blue);
+	 border-color: var(--midnight-blue);
+	}
+	.button.full.midnight-blue:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--midnight-blue));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--midnight-blue));
+	}
+	.button.full.ocean {
+	 background-color: var(--ocean);
+	 border-color: var(--ocean);
+	}
+	.button.full.ocean:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--ocean));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--ocean));
+	}
+	.button.full.light-grey {
+	 background-color: var(--light-grey);
+	 border-color: var(--light-grey);
+	}
+	.button.full.light-grey:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--light-grey));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--light-grey));
+	}
+	.button.full.dark-grey {
+	 background-color: var(--dark-grey);
+	 border-color: var(--dark-grey);
+	}
+	.button.full.dark-grey:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--dark-grey));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--dark-grey));
+	}
+	.button.full.grey {
+	 background-color: var(--grey);
+	 border-color: var(--grey);
+	}
+	.button.full.grey:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--grey));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--grey));
+	}
+	.button.full.black {
+	 background-color: var(--black);
+	 border-color: var(--black);
+	}
+	.button.full.black:hover {
+	 background-color: color-mix(in srgb, var(--black) 20%, var(--black));
+	 border-color: color-mix(in srgb, var(--black) 20%, var(--black));
+	}
+
+	.button.no-caps {
+	 text-transform: none;
+	}
+
+	.status {
+	 height: 24px;
+	 font-size: 12px;
+	 font-weight: 600;
+	 padding: 0px 12px;
+	 border: 1px solid black;
+	 border-radius: 5000px;
+	 color: black;
+	 background: white;
+	 width: fit-content;
+	 align-content: center;
+	}
+	.status.green {
+	 background: var(--green);
+	 border-color: var(--green);
+	 color: white;
+	}
+	.status.red {
+	 background: var(--red);
+	 border-color: var(--red);
+	 color: white;
+	}
+	.status.blue {
+	 background: var(--blue);
+	 border-color: var(--blue);
+	 color: white;
+	}
+	.status.purple {
+	 background: var(--purple);
+	 border-color: var(--purple);
+	 color: white;
+	}
+	.status.orange {
+	 background: var(--orange);
+	 border-color: var(--orange);
+	 color: white;
+	}
+	.status.burgundy {
+	 background: var(--burgundy);
+	 border-color: var(--burgundy);
+	 color: white;
+	}
+	.status.crimson {
+	 background: var(--crimson);
+	 border-color: var(--crimson);
+	 color: white;
+	}
+	.status.midnight-blue {
+	 background: var(--midnight-blue);
+	 border-color: var(--midnight-blue);
+	 color: white;
+	}
+	.status.ocean {
+	 background: var(--ocean);
+	 border-color: var(--ocean);
+	 color: white;
+	}
+	.status.light-grey {
+	 background: var(--light-grey);
+	 border-color: var(--light-grey);
+	 color: white;
+	}
+	.status.dark-grey {
+	 background: var(--dark-grey);
+	 border-color: var(--dark-grey);
+	 color: white;
+	}
+	.status.grey {
+	 background: var(--grey);
+	 border-color: var(--grey);
+	 color: white;
+	}
+	.status.black {
+	 background: var(--black);
+	 border-color: var(--black);
+	 color: white;
+	}
+
+	.input, .select {
+	 font-size: 14px;
+	 border-radius: 20px;
+	 border: 1px solid var(--grey);
+	 transition: border-color 250ms cubic-bezier(0.23, 1, 0.32, 1) 50ms, color;
+	 width: fit-content;
+	 text-align: left;
+	 padding: 10px 12px;
+	 color: var(--black);
+	}
+	.input:active, .input:focus-visible, .input:hover, .select:active, .select:focus-visible, .select:hover {
+	 border-color: var(--black);
+	 border-width: 1px;
+	 outline: none;
+	}
+	.input.green, .select.green {
+	 border-color: var(--green);
+	}
+	.input.green:active, .input.green:focus-visible, .input.green:hover, .select.green:active, .select.green:focus-visible, .select.green:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--green));
+	}
+	.input.red, .select.red {
+	 border-color: var(--red);
+	}
+	.input.red:active, .input.red:focus-visible, .input.red:hover, .select.red:active, .select.red:focus-visible, .select.red:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--red));
+	}
+	.input.blue, .select.blue {
+	 border-color: var(--blue);
+	}
+	.input.blue:active, .input.blue:focus-visible, .input.blue:hover, .select.blue:active, .select.blue:focus-visible, .select.blue:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--blue));
+	}
+	.input.purple, .select.purple {
+	 border-color: var(--purple);
+	}
+	.input.purple:active, .input.purple:focus-visible, .input.purple:hover, .select.purple:active, .select.purple:focus-visible, .select.purple:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--purple));
+	}
+	.input.orange, .select.orange {
+	 border-color: var(--orange);
+	}
+	.input.orange:active, .input.orange:focus-visible, .input.orange:hover, .select.orange:active, .select.orange:focus-visible, .select.orange:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--orange));
+	}
+	.input.burgundy, .select.burgundy {
+	 border-color: var(--burgundy);
+	}
+	.input.burgundy:active, .input.burgundy:focus-visible, .input.burgundy:hover, .select.burgundy:active, .select.burgundy:focus-visible, .select.burgundy:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--burgundy));
+	}
+	.input.crimson, .select.crimson {
+	 border-color: var(--crimson);
+	}
+	.input.crimson:active, .input.crimson:focus-visible, .input.crimson:hover, .select.crimson:active, .select.crimson:focus-visible, .select.crimson:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--crimson));
+	}
+	.input.midnight-blue, .select.midnight-blue {
+	 border-color: var(--midnight-blue);
+	}
+	.input.midnight-blue:active, .input.midnight-blue:focus-visible, .input.midnight-blue:hover, .select.midnight-blue:active, .select.midnight-blue:focus-visible, .select.midnight-blue:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--midnight-blue));
+	}
+	.input.ocean, .select.ocean {
+	 border-color: var(--ocean);
+	}
+	.input.ocean:active, .input.ocean:focus-visible, .input.ocean:hover, .select.ocean:active, .select.ocean:focus-visible, .select.ocean:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--ocean));
+	}
+	.input.light-grey, .select.light-grey {
+	 border-color: var(--light-grey);
+	}
+	.input.light-grey:active, .input.light-grey:focus-visible, .input.light-grey:hover, .select.light-grey:active, .select.light-grey:focus-visible, .select.light-grey:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--light-grey));
+	}
+	.input.dark-grey, .select.dark-grey {
+	 border-color: var(--dark-grey);
+	}
+	.input.dark-grey:active, .input.dark-grey:focus-visible, .input.dark-grey:hover, .select.dark-grey:active, .select.dark-grey:focus-visible, .select.dark-grey:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--dark-grey));
+	}
+	.input.grey, .select.grey {
+	 border-color: var(--grey);
+	}
+	.input.grey:active, .input.grey:focus-visible, .input.grey:hover, .select.grey:active, .select.grey:focus-visible, .select.grey:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--grey));
+	}
+	.input.black, .select.black {
+	 border-color: var(--black);
+	}
+	.input.black:active, .input.black:focus-visible, .input.black:hover, .select.black:active, .select.black:focus-visible, .select.black:hover {
+	 border-color: color-mix(in srgb, var(--black) 30%, var(--black));
+	}
+
+	.select {
+	 -webkit-appearance: none;
+	 -moz-appearance: none;
+	 appearance: none;
+	 position: relative;
+	 padding-right: 50px;
+	 cursor: pointer;
+	}
+
+	.select::after {
+	 content: "";
+	 position: absolute;
+	 top: 50%;
+	 right: 15px;
+	 width: 16px;
+	 height: 12px;
+	 background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M14.9194 5.7236C15.0727 5.95436 15.0107 6.26621 14.7809 6.42013L8.28092 11.4156C8.11292 11.5281 7.89401 11.5281 7.72601 11.4156L1.22602 6.42013C0.99629 6.26621 0.934281 5.95436 1.08752 5.7236C1.24075 5.49284 1.5512 5.43055 1.78093 5.58448L8.00346 10.394L14.226 5.58448C14.4557 5.43055 14.7662 5.49284 14.9194 5.7236Z" clip-rule="evenodd"><\/path><\/svg>') no-repeat center center;
+	 transform: translateY(-50%);
+	 transition: transform 0.25s ease;
+	}
+
+	.select.open::after {
+	 transform: translateY(-50%) rotate(180deg);
+	}
+
+	.options {
+	 list-style-type: none;
+	 margin: 0;
+	 padding-left: 0;
+	 border-radius: 8px;
+	 border: 1px solid var(--grey);
+	 box-shadow: rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 37, 84, 0.16) 0px 8px 14px;
+	 padding-top: 8px;
+	 padding-bottom: 8px;
+	}
+
+	.option {
+	 padding: 8px 16px;
+	 cursor: pointer;
+	}
+	.option:hover {
+	 background-color: var(--light-grey);
+	}
+	.option.selected {
+	 color: var(--purple);
+	 background-color: color-mix(in srgb, var(--purple) 10%, transparent);
+	}
+	.option.selected:hover {
+	 background-color: color-mix(in srgb, var(--purple) 25%, transparent);
+	}
+
+	.input[type=text] {
+	 cursor: text;
+	}
+	.input[type=text]:placeholder {
+	 color: var(--light-grey);
+	}
+
+	.switch input, .checkbox input, .radio input {
+	 opacity: 0;
+	 width: 0;
+	 height: 0;
+	}
+
+	.switch {
+	 display: flex;
+	 height: 20px;
+	 cursor: pointer;
+	 width: fit-content;
+	}
+
+	.slider {
+	 position: relative;
+	 width: 36px;
+	 background-color: var(--dark-grey);
+	 transition: 250ms;
+	 border-radius: 20px;
+	}
+
+	.slider:before {
+	 position: absolute;
+	 content: "";
+	 height: 16px;
+	 width: 16px;
+	 left: 2px;
+	 bottom: 2px;
+	 background-color: white;
+	 transition: 250ms;
+	 border-radius: 50%;
+	}
+
+	input:checked ~ .slider {
+	 background-color: var(--purple);
+	}
+	input:checked ~ .slider.green {
+	 background-color: var(--green);
+	}
+	input:checked ~ .slider.red {
+	 background-color: var(--red);
+	}
+	input:checked ~ .slider.blue {
+	 background-color: var(--blue);
+	}
+	input:checked ~ .slider.purple {
+	 background-color: var(--purple);
+	}
+	input:checked ~ .slider.orange {
+	 background-color: var(--orange);
+	}
+	input:checked ~ .slider.burgundy {
+	 background-color: var(--burgundy);
+	}
+	input:checked ~ .slider.crimson {
+	 background-color: var(--crimson);
+	}
+	input:checked ~ .slider.midnight-blue {
+	 background-color: var(--midnight-blue);
+	}
+	input:checked ~ .slider.ocean {
+	 background-color: var(--ocean);
+	}
+	input:checked ~ .slider.light-grey {
+	 background-color: var(--light-grey);
+	}
+	input:checked ~ .slider.dark-grey {
+	 background-color: var(--dark-grey);
+	}
+	input:checked ~ .slider.grey {
+	 background-color: var(--grey);
+	}
+	input:checked ~ .slider.black {
+	 background-color: var(--black);
+	}
+
+	input:checked ~ .slider:before {
+	 transform: translateX(16px);
+	}
+
+	.checkbox, .radio {
+	 display: flex;
+	 align-items: center;
+	 cursor: pointer;
+	 padding: 5px 10px 5px 5px;
+	 border-radius: 4px;
+	 width: fit-content;
+	}
+
+	.radio-button, .checkmark {
+	 position: relative;
+	 width: 16px;
+	 height: 16px;
+	 background-color: white;
+	 border: 2px solid var(--grey);
+	 border-radius: 4px;
+	 transition: all 0.3s ease-in-out;
+	 margin-right: 10px;
+	}
+
+	.radio-button {
+	 border-radius: 50%;
+	}
+
+	.checkbox:hover, .radio:hover {
+	 background-color: #e6e6ff;
+	 border-color: var(--purple);
+	}
+
+	.checkbox input:checked ~ .checkmark {
+	 background-color: var(--purple);
+	 border-color: var(--purple);
+	}
+
+	.radio input:checked ~ .radio-button {
+	 border-color: var(--purple);
+	 box-shadow: inset 0 0 0 4px var(--purple);
+	}
+
+	.checkbox input:checked ~ .checkmark:after {
+	 content: "";
+	 position: absolute;
+	 left: 4px;
+	 width: 5px;
+	 height: 10px;
+	 border: solid white;
+	 border-width: 0 3px 3px 0;
+	 transform: rotate(45deg);
+	}
+
+	.checkbox label, .radio label {
+	 margin: 0;
+	}
+
+	/* HTML: <div class="loader"><\/div> */
+	.loader {
+	 width: 50px;
+	 aspect-ratio: 1;
+	 --dot-color: var(--purple);
+	 --_c:no-repeat radial-gradient(farthest-side, var(--dot-color) 92%, transparent);
+	 background: var(--_c) top, var(--_c) left, var(--_c) right, var(--_c) bottom;
+	 background-size: 12px 12px;
+	 animation: halfRotation 1s infinite;
+	}
+	.loader.green {
+	 --dot-color: var(--green);
+	}
+	.loader.red {
+	 --dot-color: var(--red);
+	}
+	.loader.blue {
+	 --dot-color: var(--blue);
+	}
+	.loader.purple {
+	 --dot-color: var(--purple);
+	}
+	.loader.orange {
+	 --dot-color: var(--orange);
+	}
+	.loader.burgundy {
+	 --dot-color: var(--burgundy);
+	}
+	.loader.crimson {
+	 --dot-color: var(--crimson);
+	}
+	.loader.midnight-blue {
+	 --dot-color: var(--midnight-blue);
+	}
+	.loader.ocean {
+	 --dot-color: var(--ocean);
+	}
+	.loader.light-grey {
+	 --dot-color: var(--light-grey);
+	}
+	.loader.dark-grey {
+	 --dot-color: var(--dark-grey);
+	}
+	.loader.grey {
+	 --dot-color: var(--grey);
+	}
+	.loader.black {
+	 --dot-color: var(--black);
+	}
+
+	@keyframes halfRotation {
+	 to {
+	   transform: rotate(0.5turn);
+	 }
+	}
+
+
+	</style>
+	<style>
+	      .row {
+	          display: flex;
+	          justify-content: space-between;
+	      }
+
+	      h2 a {
+	          text-decoration: none;
+	      }
+
+	      body {
+	          width: 50vw;
+	          margin-left: 15vw;
+	      }
+
+	      .column {
+	          display: flex;
+	          flex-direction: column;
+	      }
+	</style>
+	<script>
+	       const toggleDropdown = (dropdownId, optionsId, defaultDisplayValue = 'block') => {
+	           const dropdownElement = document.getElementById(dropdownId);
+	           const optionsElement = document.getElementById(optionsId);
+
+	           if (dropdownElement && optionsElement) {
+	               dropdownElement.classList.toggle("open");
+	               optionsElement.style.display = optionsElement.style.display === 'none' ? defaultDisplayValue : 'none';
+	           }
+	       };
+
+	       const setElementValue = (targetId, value) => {
+	           const target = document.getElementById(targetId);
+	           if (target) {
+	               target.innerHTML = value;
+	           }
+	       }
+
+	       const setDropdownValue = (dropdownId, optionsId, optionElement) => {
+	           toggleDropdown(dropdownId, optionsId);
+
+	           const optionsElement = document.getElementById(optionsId);
+	           if (optionsElement) {
+	               [...optionsElement.children].forEach(option => option.classList.remove("selected"));
+	               optionElement.classList.add("selected");
+	               setElementValue(dropdownId, optionElement.innerHTML);
+	           }
+	       }
+	</script>
+</head>
+<body>
+	<div class="custom-element">
+		<h1>Kontent.ai stylekit showcase</h1>
+		<hr>
+		<hr>
+		<h2 id="button"><a href="#button">Button</a></h2>
+		<div class="row">
+			<div class="button">
+				Click me
+			</div>
+			<div class="button ocean">
+				Click me
+			</div>
+			<div class="button orange no-caps">
+				Click me
+			</div>
+		</div>
+		<hr>
+		<h2 id="full-button"><a href="#full-button">Full button</a></h2>
+		<div class="row">
+			<div class="button full">
+				Click me
+			</div>
+			<div class="button full ocean">
+				Click me
+			</div>
+			<div class="button full orange no-caps">
+				Click me
+			</div>
+		</div>
+		<hr>
+		<h2 id="status"><a href="#status">Status</a></h2>
+		<div class="row">
+			<div class="status">
+				Synchronizing
+			</div>
+			<div class="status ocean">
+				Synchronizing
+			</div>
+			<div class="status orange">
+				Synchronizing
+			</div>
+		</div>
+		<hr>
+		<h2 id="text-input"><a href="#text-input">Text input</a></h2>
+		<div class="row">
+			<input class="input" placeholder="Insert something" type="text"> <input class="input ocean" placeholder="Insert something" type="text"> <input class="input orange" placeholder="Insert something" type="text">
+		</div>
+		<hr>
+		<h2 id="switch"><a href="#switch">Switch</a></h2>
+		<div class="row">
+			<label class="switch">Enable feature <input id="checkbox" type="checkbox"> <span class="slider"></span></label> <label class="switch">Enable feature <input id="checkbox" type="checkbox"> <span class="slider ocean"></span></label> <label class="switch">Enable feature <input id="checkbox" type="checkbox"> <span class="slider orange"></span></label>
+		</div>
+		<hr>
+		<h2 id="loader"><a href="#loader">Loader</a></h2>
+		<div class="row">
+			<div class="loader"></div>
+			<div class="loader ocean"></div>
+			<div class="loader orange"></div>
+		</div>
+		<hr>
+		<h2 id="checkbox-and-radio"><a href="#checkbox-and-radio">Checkbox and radio</a></h2>
+		<div class="row">
+			<div class="column">
+				<label class="radio"><input checked name="radio" type="radio"> <span class="radio-button"></span> Radio option 1</label> <label class="radio"><input name="radio" type="radio"> <span class="radio-button"></span> Radio option 2</label> <label class="radio"><input name="radio" type="radio"> <span class="radio-button"></span> Radio option 3</label>
+			</div>
+			<div class="column">
+				<label class="checkbox"><input type="checkbox"> <span class="checkmark"></span> Manager</label> <label class="checkbox"><input type="checkbox"> <span class="checkmark"></span> Barista</label> <label class="checkbox"><input checked type="checkbox"> <span class="checkmark"></span> Engineer</label>
+			</div>
+		</div>
+		<hr>
+		<h2 id="section"><a href="#section">Section</a></h2>
+		<div>
+			<div class="section">
+				<h1>Heading</h1>
+				<h2>Subheading</h2>
+				<p>Morbi scelerisque luctus velit. Nulla est. Duis risus. Aenean placerat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis risus. Nullam dapibus fermentum ipsum. Praesent id justo in neque elementum ultrices.</p>
+				<div class="button full ocean">
+					Click me
+				</div>
+			</div><br>
+			<div class="section red">
+				<h1>Heading</h1>
+				<h2>Subheading</h2>
+				<p>Morbi scelerisque luctus velit. Nulla est. Duis risus. Aenean placerat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis risus. Nullam dapibus fermentum ipsum. Praesent id justo in neque elementum ultrices.</p>
+				<div class="button full red">
+					Click me
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h2 id="section-info"><a href="#section-info">Infosection</a></h2>
+		<div>
+			<div class="section info green">
+				<h1>Info</h1>
+				<p>Morbi scelerisque luctus velit. Nulla est. Duis risus. Aenean placerat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis risus. Nullam dapibus fermentum ipsum. Praesent id justo in neque elementum ultrices.</p>
+			</div><br>
+			<div class="section info red">
+				<h1>Warning</h1>
+				<p>Morbi scelerisque luctus velit. Nulla est. Duis risus. Aenean placerat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis risus. Nullam dapibus fermentum ipsum. Praesent id justo in neque elementum ultrices.</p>
+			</div>
+		</div>
+		<hr>
+		<h2 id="select"><a href="#select">Dropdown</a></h2>
+		<div class="select" id="selector" onclick="toggleDropdown('selector', 'options')">
+			Choose your car
+		</div>
+		<div class="options" id="options" style="display: none;">
+			<div class="option" id="1" onclick="setDropdownValue('selector', 'options', this)">
+				Volvo
+			</div>
+			<div class="option selected" id="2" onclick="setDropdownValue('selector', 'options', this)">
+				Mercedes
+			</div>
+			<div class="option" id="3" onclick="setDropdownValue('selector', 'options', this)">
+				Skoda
+			</div>
+			<div class="option" id="4" onclick="setDropdownValue('selector', 'options', this)">
+				Ford
+			</div>
+		</div>
+		<div style="height: 20vh;"></div>
+	</div>
+</body>
+</html>
