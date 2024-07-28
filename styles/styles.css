@@ -13,8 +13,8 @@
   --black: #000000;
 }
 
-.custom-element {
-  font-family: Inter, sans-serif;
+.custom-element, body, html {
+  font-family: sans-serif;
 }
 
 .section {
@@ -208,6 +208,10 @@
   color: white;
   background-color: var(--purple);
 }
+.button.full:hover {
+  background-color: color-mix(in srgb, var(--black) 20%, var(--purple));
+  border-color: color-mix(in srgb, var(--black) 20%, var(--purple));
+}
 .button.full.green {
   background-color: var(--green);
   border-color: var(--green);
@@ -395,10 +399,9 @@
   color: white;
 }
 
-.input[type=text] {
+.input, .select {
   font-size: 14px;
   border-radius: 20px;
-  cursor: text;
   border: 1px solid var(--grey);
   transition: border-color 250ms cubic-bezier(0.23, 1, 0.32, 1) 50ms, color;
   width: fit-content;
@@ -406,91 +409,146 @@
   padding: 10px 12px;
   color: var(--black);
 }
-.input[type=text]:placeholder {
-  color: var(--light-grey);
-}
-.input[type=text]:active, .input[type=text]:focus-visible, .input[type=text]:hover {
+.input:active, .input:focus-visible, .input:hover, .select:active, .select:focus-visible, .select:hover {
   border-color: var(--black);
   border-width: 1px;
   outline: none;
 }
-.input[type=text].green {
+.input.green, .select.green {
   border-color: var(--green);
 }
-.input[type=text].green:active, .input[type=text].green:focus-visible, .input[type=text].green:hover {
+.input.green:active, .input.green:focus-visible, .input.green:hover, .select.green:active, .select.green:focus-visible, .select.green:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--green));
 }
-.input[type=text].red {
+.input.red, .select.red {
   border-color: var(--red);
 }
-.input[type=text].red:active, .input[type=text].red:focus-visible, .input[type=text].red:hover {
+.input.red:active, .input.red:focus-visible, .input.red:hover, .select.red:active, .select.red:focus-visible, .select.red:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--red));
 }
-.input[type=text].blue {
+.input.blue, .select.blue {
   border-color: var(--blue);
 }
-.input[type=text].blue:active, .input[type=text].blue:focus-visible, .input[type=text].blue:hover {
+.input.blue:active, .input.blue:focus-visible, .input.blue:hover, .select.blue:active, .select.blue:focus-visible, .select.blue:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--blue));
 }
-.input[type=text].purple {
+.input.purple, .select.purple {
   border-color: var(--purple);
 }
-.input[type=text].purple:active, .input[type=text].purple:focus-visible, .input[type=text].purple:hover {
+.input.purple:active, .input.purple:focus-visible, .input.purple:hover, .select.purple:active, .select.purple:focus-visible, .select.purple:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--purple));
 }
-.input[type=text].orange {
+.input.orange, .select.orange {
   border-color: var(--orange);
 }
-.input[type=text].orange:active, .input[type=text].orange:focus-visible, .input[type=text].orange:hover {
+.input.orange:active, .input.orange:focus-visible, .input.orange:hover, .select.orange:active, .select.orange:focus-visible, .select.orange:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--orange));
 }
-.input[type=text].burgundy {
+.input.burgundy, .select.burgundy {
   border-color: var(--burgundy);
 }
-.input[type=text].burgundy:active, .input[type=text].burgundy:focus-visible, .input[type=text].burgundy:hover {
+.input.burgundy:active, .input.burgundy:focus-visible, .input.burgundy:hover, .select.burgundy:active, .select.burgundy:focus-visible, .select.burgundy:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--burgundy));
 }
-.input[type=text].crimson {
+.input.crimson, .select.crimson {
   border-color: var(--crimson);
 }
-.input[type=text].crimson:active, .input[type=text].crimson:focus-visible, .input[type=text].crimson:hover {
+.input.crimson:active, .input.crimson:focus-visible, .input.crimson:hover, .select.crimson:active, .select.crimson:focus-visible, .select.crimson:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--crimson));
 }
-.input[type=text].midnight-blue {
+.input.midnight-blue, .select.midnight-blue {
   border-color: var(--midnight-blue);
 }
-.input[type=text].midnight-blue:active, .input[type=text].midnight-blue:focus-visible, .input[type=text].midnight-blue:hover {
+.input.midnight-blue:active, .input.midnight-blue:focus-visible, .input.midnight-blue:hover, .select.midnight-blue:active, .select.midnight-blue:focus-visible, .select.midnight-blue:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--midnight-blue));
 }
-.input[type=text].ocean {
+.input.ocean, .select.ocean {
   border-color: var(--ocean);
 }
-.input[type=text].ocean:active, .input[type=text].ocean:focus-visible, .input[type=text].ocean:hover {
+.input.ocean:active, .input.ocean:focus-visible, .input.ocean:hover, .select.ocean:active, .select.ocean:focus-visible, .select.ocean:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--ocean));
 }
-.input[type=text].light-grey {
+.input.light-grey, .select.light-grey {
   border-color: var(--light-grey);
 }
-.input[type=text].light-grey:active, .input[type=text].light-grey:focus-visible, .input[type=text].light-grey:hover {
+.input.light-grey:active, .input.light-grey:focus-visible, .input.light-grey:hover, .select.light-grey:active, .select.light-grey:focus-visible, .select.light-grey:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--light-grey));
 }
-.input[type=text].dark-grey {
+.input.dark-grey, .select.dark-grey {
   border-color: var(--dark-grey);
 }
-.input[type=text].dark-grey:active, .input[type=text].dark-grey:focus-visible, .input[type=text].dark-grey:hover {
+.input.dark-grey:active, .input.dark-grey:focus-visible, .input.dark-grey:hover, .select.dark-grey:active, .select.dark-grey:focus-visible, .select.dark-grey:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--dark-grey));
 }
-.input[type=text].grey {
+.input.grey, .select.grey {
   border-color: var(--grey);
 }
-.input[type=text].grey:active, .input[type=text].grey:focus-visible, .input[type=text].grey:hover {
+.input.grey:active, .input.grey:focus-visible, .input.grey:hover, .select.grey:active, .select.grey:focus-visible, .select.grey:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--grey));
 }
-.input[type=text].black {
+.input.black, .select.black {
   border-color: var(--black);
 }
-.input[type=text].black:active, .input[type=text].black:focus-visible, .input[type=text].black:hover {
+.input.black:active, .input.black:focus-visible, .input.black:hover, .select.black:active, .select.black:focus-visible, .select.black:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--black));
+}
+
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  padding-right: 50px;
+  cursor: pointer;
+}
+
+.select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 16px;
+  height: 12px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M14.9194 5.7236C15.0727 5.95436 15.0107 6.26621 14.7809 6.42013L8.28092 11.4156C8.11292 11.5281 7.89401 11.5281 7.72601 11.4156L1.22602 6.42013C0.99629 6.26621 0.934281 5.95436 1.08752 5.7236C1.24075 5.49284 1.5512 5.43055 1.78093 5.58448L8.00346 10.394L14.226 5.58448C14.4557 5.43055 14.7662 5.49284 14.9194 5.7236Z" clip-rule="evenodd"></path></svg>') no-repeat center center;
+  transform: translateY(-50%);
+  transition: transform 0.25s ease;
+}
+
+.select.open::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.options {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+  border-radius: 8px;
+  border: 1px solid var(--grey);
+  box-shadow: rgba(0, 0, 0, 0.03) 0px 0px 8px, rgba(0, 37, 84, 0.16) 0px 8px 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.option {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.option:hover {
+  background-color: var(--light-grey);
+}
+.option.selected {
+  color: var(--purple);
+  background-color: color-mix(in srgb, var(--purple) 10%, transparent);
+}
+.option.selected:hover {
+  background-color: color-mix(in srgb, var(--purple) 25%, transparent);
+}
+
+.input[type=text] {
+  cursor: text;
+}
+.input[type=text]:placeholder {
+  color: var(--light-grey);
 }
 
 .switch input, .checkbox input, .radio input {
@@ -615,7 +673,7 @@ input:checked ~ .slider:before {
 .checkbox input:checked ~ .checkmark:after {
   content: "";
   position: absolute;
-  left: 5px;
+  left: 4px;
   width: 5px;
   height: 10px;
   border: solid white;
