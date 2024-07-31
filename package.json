@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "Predefined CSS for styling Kontent.ai custom elements and tools in line with application UI.",
   "scripts": {
-    "convert": "sass styles/styles.scss styles/styles.css"
+    "build": "sass styles/styles.scss styles/styles.css"
   },
   "author": "Daniel Pokorny",
   "license": "MIT",
   "devDependencies": {
     "sass": "^1.77.8"
-  }
+  },
+  "files": [
+    "./styles"
+  ]
 }
