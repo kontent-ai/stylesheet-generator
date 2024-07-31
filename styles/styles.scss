@@ -66,8 +66,9 @@ $colors: (
     font-weight: 700;
     padding: 0px 22px;
     border: 2px solid var(--purple);
+    background-color: var(--purple);
     border-radius: 5000px;
-    color: var(--black);
+    color: white;
     width: fit-content;
     align-content: center;
     cursor: pointer;
@@ -75,37 +76,6 @@ $colors: (
     letter-spacing: 0.1ch;
     line-height: 18px;
     transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
-
-    &:hover {
-        background-color: color-mix(in srgb, var(--purple) 20%, transparent);
-    }
-
-    @each $color-name, $color-value in $colors {
-        &.#{$color-name} {
-            border: 2px solid $color-value;
-
-            &:hover {
-                background-color: color-mix(in srgb, $color-value 20%, transparent);
-            }
-        }
-    }
-}
-
-.button.destructive {
-    border-color: rgb(219,0,0);
-    color: rgb(219,0,0);
-    
-    &:hover {
-        border-color: rgb(169, 0, 0);
-        background-color: rgb(169, 0, 0);
-        color: white;
-    }
-}
-
-.button.secondary {
-    border-color: var(--purple);
-    background-color: var(--purple);
-    color: white;
 
     &:hover {
         background-color: color-mix(in srgb, var(--black) 20%, var(--purple));
@@ -120,6 +90,38 @@ $colors: (
             &:hover {
                 background-color: color-mix(in srgb, var(--black) 20%, $color-value);
                 border-color: color-mix(in srgb, var(--black) 20%, $color-value);
+            }
+        }
+    }
+}
+
+.button.destructive {
+    border-color: rgb(219,0,0);
+    color: rgb(219,0,0);
+    background-color: white;
+    
+    &:hover {
+        border-color: rgb(169, 0, 0);
+        background-color: rgb(169, 0, 0);
+        color: white;
+    }
+}
+
+.button.secondary {
+    border-color: var(--purple);
+    background-color: var(--white);
+    color: var(--black);
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--purple) 20%, transparent);
+    }
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            border: 2px solid $color-value;
+
+            &:hover {
+                background-color: color-mix(in srgb, $color-value 20%, transparent);
             }
         }
     }
