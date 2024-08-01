@@ -6,7 +6,19 @@ The SCSS file defines classes for elements commonly used when developing a custo
 
 ## Installation
 
-Link or copy the **styles.css** file to your application or copy the SCSS and compile it yourself.
+Install using your preferred package manager. 
+
+If your environment supports it (e.g. you're using a bundler), you can import the styles directly:
+
+```javascript
+import '@kontent-ai/stylekit';
+```
+
+Alternatively, you can link the CSS from `node_modules`:
+
+```html
+<link rel="stylesheet" href="node_modules/@kontent-ai/stylekit/styles/styles.css">
+```
 
 ## Colors
 
@@ -48,6 +60,11 @@ A round, bordered button with a hover animation. Defaults to upper-case font, wh
 <div class="button green">Save</div>
 <div class="button secondary">Cancel</div>
 ```
+
+> [!TIP]
+> Buttons follow their UI hierarchy. Default (primary) button is filled, secondary button is bordered. 
+>
+> `destructive` is a standalone style and shouldn't be combined with `secondary` modifier.
 
 ### .input
 
