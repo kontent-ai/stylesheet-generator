@@ -1,6 +1,8 @@
 {
-  "name": "stylekit",
+  "name": "@kontent-ai/stylekit",
   "version": "1.0.0",
+  "main": "styles/styles.css",
+  "style": "styles/styles.css",
   "description": "Predefined CSS for styling Kontent.ai custom elements and tools in line with application UI.",
   "scripts": {
     "build": "sass styles/styles.scss styles/styles.css"
