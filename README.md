@@ -2,7 +2,7 @@
 
 ## Overview
 
-The SCSS file defines classes for elements commonly used when developing a custom element or an open source tool that seeks to maintain Kontent.ai visual identity, such as inputs, buttons, etc. It also comes with predefined color classes, using a palette from Kontent.ai application interface. The color classes can be combined with most of the element classes to streamline the styling process.
+The SCSS/CSS file defines classes for elements commonly used when developing a custom element or an open source tool that seeks to maintain Kontent.ai visual identity, such as inputs, buttons, etc. It also comes with predefined color classes, using a palette from Kontent.ai application interface. The color classes can be combined with most of the element classes to streamline the styling process.
 
 ## Installation
 
@@ -43,11 +43,11 @@ One-class-does-it-all styles with optional modifiers.
 
 ### .button
 
-A round, bordered button with a hover animation. Defaults to upper-case font, which can be overridden using `no-caps` helper class.
+A round, color-filled button with a hover animation. Defaults to upper-case font, which can be overridden using `no-caps` helper class.
 
 #### Modifiers
 
-- `secondary`: sets background color to match border color, defaults font color to `white`
+- `secondary`: bordered button, sets background color to `white`, defaults font color to `black`
 - `destructive`: specific style for **Delete** and similar actions, matches UI
 - `[color-class-name]`: affects `border-color` and `background-color ::hovered`, `background-color` for secondary only
 - `no-caps`: sets `text-transform` to `none`
