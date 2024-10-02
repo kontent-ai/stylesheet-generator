@@ -7,7 +7,9 @@ The SCSS/CSS file defines classes for elements commonly used when developing a c
 ## Installation
 
 Install using your preferred package manager. 
-
+```
+npm i @kontent-ai/stylekit
+```
 If your environment supports it (e.g. you're using a bundler), you can import the styles directly:
 
 ```javascript
