@@ -109,6 +109,7 @@ The color classes are `red`, `crimson`, `green`, `blue`, `purple`, `orange`, `oc
 ## Global helpers
 
 - `.disabled`: can be added to any element (button, input, switch, checkbox, radio, dropdown…); sets `opacity` to 0.5 and disables pointer events.
+- Focus ring: on keyboard focus (`:focus-visible`), `.input` and `.select` get a 2px ring on their edge (red when invalid). `.button`, and the visible part of a switch, checkbox or radio, get a 2px outline 3px outside the element. The color is `--kontent-focus-color` (`#0093ff`, the app's focus color); override it if you need another one. A `.button` on a `<div>` only gets focus if you add `tabindex="0"`, so prefer `<button class="button">`.
 - Font: `html`, `body` and any `.custom-element` wrapper get `font-family: var(--kontent-font-family)`, which is `Inter, sans-serif`. See [Font](#font).
 
 ## Font
@@ -162,6 +163,7 @@ Base class for all kinds of inputs, comes in a form of rounded box with hover ef
 
 - `[color-class-name]`: affects `border-color` and its `:hover` state
 - `type="text"`: sets cursor to `text`
+- Placeholder text is `#6f6f6f`, the app's hint color (readable on white)
 - `aria-invalid="true"` or `invalid`: red border, darker red on hover and focus. Also works on `.select`, and wins over color modifiers. See [Caption and invalid state](#input-caption-and-invalid-state).
 - `disabled`: sets `opacity` to 0.5 and disables pointer events
 
@@ -541,6 +543,8 @@ Clone the repository and adjust the **styles.scss** file accordingly. The palett
 - Added `styles/tailwind.css`, a Tailwind CSS v4 theme with the palette as `kontent-*` colors, plus instructions for using the stylekit with Tailwind, Less and Sass.
 - Moved the palette to `styles/_tokens.scss`, the single source for the custom properties, color classes and Tailwind theme.
 - Switched the font from `sans-serif` to Inter, the Kontent.ai app's font, bundled with the package (56 kB Latin subset, SIL Open Font License 1.1). Override it with `--kontent-font-family`.
+- Fixed the input placeholder style, which never applied because of a `:placeholder` typo. Placeholders are now `#6f6f6f` (the app's hint color) instead of the illegible `--light-grey` the README used to promise.
+- Added a visible keyboard focus ring (`#0093ff`, `--kontent-focus-color`) to inputs, dropdowns, buttons, switches, checkboxes and radios, matching the app.
 - Added an invalid state for `.input` and `.select` (`aria-invalid="true"` or `invalid`) and `.input-caption` / `.input-caption.invalid` for helper and error messages, matching the app's input alert state.
 - Documented the dropdown contract (classes, ARIA, keyboard) and added a React + TypeScript example component.
 - Added `styles/dropdown.js`, an accessible dropdown helper for plain HTML (keyboard, click outside to close, ARIA), and a focus style for keyboard-highlighted options.
