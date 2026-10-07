@@ -35,7 +35,7 @@ test.afterEach(async ({ page }, testInfo) => {
 });
 
 test('renders every section', async ({ page }) => {
-    for (const id of ['button', 'status', 'text-input', 'form-field', 'invalid-input', 'switch', 'loader', 'checkbox-and-radio', 'section', 'section-info', 'select']) {
+    for (const id of ['button', 'status', 'text-input', 'form-field', 'invalid-input', 'switch', 'loader', 'checkbox-and-radio', 'tag', 'icon-button', 'skeleton', 'section', 'section-info', 'select']) {
         await expect(page.locator(`#${id}`)).toBeVisible();
     }
     await expect(page.locator('.button').first()).toHaveCSS('background-color', 'rgb(91, 79, 245)');
@@ -124,4 +124,47 @@ test('keyboard focus shows a focus ring', async ({ page }) => {
 
 test('placeholder uses the readable hint color', async ({ page }) => {
     expect(await page.locator('input.input').first().evaluate((element) => getComputedStyle(element, '::placeholder').color)).toBe('rgb(111, 111, 111)');
+});
+
+test('tags have the app size and a removable variant', async ({ page }) => {
+    const tag = page.locator('.tag').first();
+    await expect(tag).toHaveCSS('height', '32px');
+    await expect(tag).toHaveCSS('border-radius', '5000px');
+    const remove = page.getByRole('button', { name: 'Remove Landing page' });
+    await expect(remove).toBeVisible();
+    await tabTo(page, remove);
+    await expect(remove).toHaveCSS('outline-color', focusBlue);
+});
+
+test('icon buttons take their name from the tooltip', async ({ page }) => {
+    const deleteButton = page.getByRole('button', { name: 'Delete', exact: true });
+    await expect(deleteButton).toHaveCSS('height', '24px');
+    await expect(deleteButton).toHaveCSS('color', red);
+});
+
+test('tooltip shows on keyboard focus and after a hover delay', async ({ page }) => {
+    const tooltip = page.locator('#tip-add');
+    await expect(tooltip).toBeHidden();
+
+    await tabTo(page, page.getByRole('button', { name: 'Add item' }).first());
+    await expect(tooltip).toBeVisible();
+    await page.evaluate(() => document.activeElement.blur());
+    await expect(tooltip).toBeHidden();
+
+    await page.getByRole('button', { name: 'Edit (tooltip below)' }).hover();
+    await page.waitForTimeout(300);
+    await expect(page.locator('#tip-edit')).toBeHidden();
+    await expect(page.locator('#tip-edit')).toBeVisible({ timeout: 2000 });
+});
+
+test('skeleton animates unless reduced motion is preferred', async ({ page }) => {
+    const skeleton = page.locator('.skeleton').first();
+    await expect(skeleton).toHaveCSS('animation-name', 'skeletonShimmer');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(skeleton).toHaveCSS('animation-name', 'none');
+
+    // A text skeleton is one line of the surrounding text tall.
+    const textSkeleton = page.locator('.skeleton.text').first();
+    await textSkeleton.evaluate((element) => { element.parentElement.style.lineHeight = '24px'; });
+    await expect(textSkeleton).toHaveCSS('height', '24px');
 });

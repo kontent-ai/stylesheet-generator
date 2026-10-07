@@ -275,6 +275,67 @@ Apply dynamically and combine with `pointer-events: none` to prevent user intera
 
 - `[color-class-name]`: affects the loader colors
 
+### .tag
+
+A pill-shaped tag, 32px tall, for showing picked values (e.g. in a multi-select). Add a `.tag-remove` button inside to make it removable; it brings its own ✕ icon.
+
+#### Modifiers
+
+- `[color-class-name]`: affects `border-color`
+- `disabled`: sets `opacity` to 0.5 and disables pointer events. Also put `disabled` on the `.tag-remove` button so it can't be reached with the keyboard.
+
+#### Usage example
+[![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#tag)
+```html
+<span class="tag">Article</span>
+<span class="tag">
+    Landing page
+    <button class="tag-remove" aria-label="Remove Landing page"></button>
+</span>
+```
+
+Give each remove button an `aria-label` that names the tag. Several buttons all called "Remove" are ambiguous for screen reader users.
+
+### .icon-button
+
+A small (24×24px), transparent button for icon-only actions, with a purple tint on hover. Bring your own icon: put an inline `<svg>` inside. It's sized to 16px, and an icon drawn with `currentColor` follows the button's color.
+
+#### Modifiers
+
+- `destructive`: red icon, dark red background with a white icon on hover
+- `disabled` attribute: sets `opacity` to 0.5
+
+#### Usage example
+[![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#icon-button)
+```html
+<button class="icon-button" aria-label="Edit">
+    <svg viewBox="0 0 16 16" aria-hidden="true">…</svg>
+</button>
+```
+
+An icon-only button has no visible text, so it always needs an accessible name: `aria-label`, or a [tooltip](#tooltip) referenced with `aria-labelledby`.
+
+### .skeleton
+
+A placeholder block with a shimmer, shown in place of content that's still loading (the app's skeleton loading). Size it with `width` and `height`. The animation stops for people who prefer reduced motion.
+
+#### Modifiers
+
+- `text`: exactly one line of the surrounding text tall; set only the `width`
+- `circle`: round, e.g. for avatars
+
+#### Usage example
+[![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#skeleton)
+```html
+<div aria-busy="true">
+    <span class="skeleton circle" style="width: 32px; height: 32px" aria-hidden="true"></span>
+    <span class="skeleton text" style="width: 60%" aria-hidden="true"></span>
+    <span class="skeleton" style="width: 100%; height: 96px" aria-hidden="true"></span>
+</div>
+```
+
+Hide the skeletons from screen readers with `aria-hidden="true"`, and set `aria-busy="true"` on the region until the content arrives.
+
 ## Composed styles
 
 Multiple classes meant to be used together to achieve the desired style.
@@ -351,6 +412,34 @@ Markup: a `<label class="radio">` that contains the `<input type="radio">`, imme
     Option 2
 </label>
 ```
+
+### Tooltip
+
+A dark tooltip with an arrow, above its element by default. It appears on hover after a 700ms delay, like in the app, and immediately on keyboard focus. CSS only, no JavaScript.
+
+#### Classes
+
+- `.has-tooltip` (wrapper), `.tooltip`
+
+#### Modifiers
+
+- `.tooltip.bottom`: shows the tooltip below the element
+
+#### Usage example
+[![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#icon-button)
+```html
+<span class="has-tooltip">
+    <button class="icon-button" aria-labelledby="delete-tip">
+        <svg viewBox="0 0 16 16" aria-hidden="true">…</svg>
+    </button>
+    <span class="tooltip" role="tooltip" id="delete-tip">Delete</span>
+</span>
+```
+
+Markup: put the element and a `.tooltip` inside a `.has-tooltip` wrapper. For an icon-only button, point `aria-labelledby` at the tooltip, so its text is the button's name. For a button that already has a name, use `aria-describedby` instead, so the tooltip adds information and doesn't repeat the name.
+
+> [!NOTE]
+> Being CSS-only, the tooltip is centered on its element and never moves to stay in view. Custom elements live in an iframe that's often only as tall as the element, so a tooltip near the top edge gets cut off; use `.tooltip.bottom` there. It also can't be closed with Escape; if your users need that (WCAG 1.4.13), close it in your own script.
 
 ### Dropdown
 
@@ -561,6 +650,7 @@ Run `npm test` after building. It checks that every CSS custom property the buil
 - Switched the font from `sans-serif` to Inter, the Kontent.ai app's font, bundled with the package (56 kB Latin subset, SIL Open Font License 1.1). Override it with `--kontent-font-family`.
 - Fixed the input placeholder style, which never applied because of a `:placeholder` typo. Placeholders are now `#6f6f6f` (the app's hint color) instead of the illegible `--light-grey` the README used to promise.
 - Added a visible keyboard focus ring (`#0093ff`, `--kontent-focus-color`) to inputs, dropdowns, buttons, switches, checkboxes and radios, matching the app.
+- Added `.tag` with `.tag-remove`, `.icon-button` (with `destructive`), a CSS-only tooltip (`.has-tooltip` + `.tooltip`, `.tooltip.bottom`) and `.skeleton` (`text`, `circle`), all matching the app's components.
 - Added `.input-label` for field labels, and documented `.input` on `<textarea>`.
 - Added an invalid state for `.input` and `.select` (`aria-invalid="true"` or `invalid`) and `.input-caption` / `.input-caption.invalid` for helper and error messages, matching the app's input alert state.
 - Documented the dropdown contract (classes, ARIA, keyboard) and added a React + TypeScript example component.
