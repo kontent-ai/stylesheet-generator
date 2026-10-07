@@ -654,7 +654,15 @@ For pages that don't use a framework, the package ships `styles/dropdown.js`. It
 
 Clone the repository and adjust the **styles.scss** file accordingly. The palette lives in **_tokens.scss**: change it there and the custom properties, the `--kontent-*` aliases, the color classes and the Tailwind theme all follow. To test the styles locally, run `npm run build`. This builds **styles.css** (with its map), **styles.layered.css** and **tailwind.css**, and copies the fresh CSS and **dropdown.js** inline into **showcase.html**, between the `stylekit:css` / `stylekit:js` markers. Commit the updated **showcase.html**; **styles.css** is only published to npm.
 
-Run `npm test` after building. It checks that every CSS custom property the build uses is defined, then runs Playwright smoke tests against **showcase.html**: no errors, the font loads, unique ids, the dropdown with mouse and keyboard, switches, the invalid state and focus rings. Run `npx playwright install chromium` once before the first run. CI runs the build (failing on Sass warnings or an out-of-date **showcase.html**) and the tests on every pull request, and uploads a report with a full-page screenshot of the showcase.
+Run `npm test` after building. It checks that every CSS custom property the build uses is defined, then runs Playwright smoke tests against **showcase.html**: no errors, the font loads, unique ids, the dropdown with mouse and keyboard, switches, the invalid state and focus rings. Run `npx playwright install chromium` once before the first run. CI runs the build (failing on Sass warnings or an out-of-date **showcase.html**) and the tests on every pull request, and uploads a Playwright report.
+
+CI also compares screenshots of every showcase section and a few interaction states (open dropdown, tooltip, focus rings) with the baselines in **tests/__screenshots__/**, pixel for pixel. These tests run only in CI, inside the pinned Playwright container, because fonts render differently on every machine; locally they're skipped. When a change alters the look on purpose:
+
+1. Add the `update-screenshots` label to the pull request. CI renders new baselines and uploads them as the `screenshots` artifact.
+2. Download the artifact, check the images, and commit them to **tests/__screenshots__/**.
+3. Remove the label, so later runs compare against the new baselines again.
+
+When you update `@playwright/test`, update the container tag in **.github/workflows/ci.yml** to the same version.
 
 ## Changelog
 

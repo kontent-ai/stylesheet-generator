@@ -1,11 +1,12 @@
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
   push:
     branches: [main]
 
 name: ci
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +30,31 @@ jobs:
       - name: Check that the committed showcase matches the build
         run: git diff --exit-code styles/showcase.html || (echo "::error::Run npm run build and commit styles/showcase.html" && exit 1)
 
-      - run: npx playwright install --with-deps chromium
+  test:
+    runs-on: ubuntu-latest
+    # Pinned image, so screenshots render the same on every run. Keep the tag in sync with the
+    # @playwright/test version in package-lock.json.
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    env:
+      STYLEKIT_VISUAL: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm run build
+
+      # Add the "update-screenshots" label to a PR to render new baselines instead of comparing.
+      # Download the "screenshots" artifact and commit its files to tests/__screenshots__/.
+      - name: Update screenshot baselines
+        if: contains(github.event.pull_request.labels.*.name, 'update-screenshots')
+        run: npx playwright test tests/visual.spec.js --update-snapshots
+
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.pull_request.labels.*.name, 'update-screenshots')
+        with:
+          name: screenshots
+          path: tests/__screenshots__/
+
       - run: npm test
 
       - uses: actions/upload-artifact@v4
