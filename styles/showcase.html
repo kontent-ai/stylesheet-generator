@@ -593,6 +593,38 @@
   color: var(--light-grey);
 }
 
+.input[aria-invalid=true], .input.invalid, .select[aria-invalid=true], .select.invalid {
+  border-color: var(--red);
+}
+.input[aria-invalid=true]:active, .input[aria-invalid=true]:focus-visible, .input[aria-invalid=true]:hover, .input.invalid:active, .input.invalid:focus-visible, .input.invalid:hover, .select[aria-invalid=true]:active, .select[aria-invalid=true]:focus-visible, .select[aria-invalid=true]:hover, .select.invalid:active, .select.invalid:focus-visible, .select.invalid:hover {
+  border-color: #a90000;
+}
+
+.input-caption {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--black);
+  text-align: left;
+  word-break: break-word;
+}
+.input-caption.invalid {
+  display: flex;
+  gap: 4px;
+  color: var(--red);
+}
+.input-caption.invalid::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 18px;
+  background-color: currentColor;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.5 15.5 14.5H.5ZM7.25 6h1.5v4.5h-1.5ZM7.25 11.5h1.5V13h-1.5Z"/></svg>') center/16px 16px no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.5 15.5 14.5H.5ZM7.25 6h1.5v4.5h-1.5ZM7.25 11.5h1.5V13h-1.5Z"/></svg>') center/16px 16px no-repeat;
+}
+
 .switch input, .checkbox input, .radio input {
   opacity: 0;
   width: 0;
@@ -1119,6 +1151,26 @@ input:checked ~ .slider:before {
 		<h2 id="text-input"><a href="#text-input">Text input</a></h2>
 		<div class="row">
 			<input class="input" placeholder="Insert something" type="text"> <input class="input ocean" placeholder="Insert something" type="text"> <input class="input disabled" placeholder="Insert disabled" type="text">
+		</div>
+		<hr>
+		<h2 id="invalid-input"><a href="#invalid-input">Caption and invalid state</a></h2>
+		<div class="row">
+			<div>
+				<input class="input" placeholder="Codename" type="text" aria-describedby="codename-caption">
+				<span class="input-caption" id="codename-caption">Lowercase letters and underscores only.</span>
+			</div>
+			<div>
+				<input class="input" type="text" value="Hello world" aria-invalid="true" aria-describedby="slug-error">
+				<span class="input-caption invalid" id="slug-error">Enter a URL slug without spaces.</span>
+			</div>
+			<div>
+				<div class="select" aria-invalid="true" aria-describedby="car-error">Choose your car</div>
+				<div class="options">
+					<div class="option">Volvo</div>
+					<div class="option">Skoda</div>
+				</div>
+				<span class="input-caption invalid" id="car-error">Select a car.</span>
+			</div>
 		</div>
 		<hr>
 		<h2 id="switch"><a href="#switch">Switch</a></h2>

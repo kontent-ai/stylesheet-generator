@@ -225,6 +225,45 @@
     }
 }
 
+// Invalid state: set aria-invalid="true" (or the `invalid` class) on the .input / .select.
+.input, .select {
+    &[aria-invalid="true"], &.invalid {
+        border-color: var(--red);
+
+        &:active, &:focus-visible, &:hover {
+            border-color: #a90000;
+        }
+    }
+}
+
+// Helper or validation message under an input, linked to it with aria-describedby.
+.input-caption {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--black);
+    text-align: left;
+    word-break: break-word;
+
+    &.invalid {
+        display: flex;
+        gap: 4px;
+        color: var(--red);
+
+        &::before {
+            content: "";
+            flex: none;
+            width: 16px;
+            height: 18px;
+            background-color: currentColor;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.5 15.5 14.5H.5ZM7.25 6h1.5v4.5h-1.5ZM7.25 11.5h1.5V13h-1.5Z"/></svg>') center / 16px 16px no-repeat;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.5 15.5 14.5H.5ZM7.25 6h1.5v4.5h-1.5ZM7.25 11.5h1.5V13h-1.5Z"/></svg>') center / 16px 16px no-repeat;
+        }
+    }
+}
+
 .switch input, .checkbox input, .radio input {
     opacity: 0;
     width: 0;

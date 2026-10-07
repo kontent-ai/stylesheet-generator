@@ -145,6 +145,7 @@ Base class for all kinds of inputs, comes in a form of rounded box with hover ef
 
 - `[color-class-name]`: affects `border-color` and its `:hover` state
 - `type="text"`: sets cursor to `text`
+- `aria-invalid="true"` or `invalid`: red border, darker red on hover and focus. Also works on `.select`, and wins over color modifiers. See [Caption and invalid state](#input-caption-and-invalid-state).
 - `disabled`: sets `opacity` to 0.5 and disables pointer events
 
 #### Usage example
@@ -152,6 +153,30 @@ Base class for all kinds of inputs, comes in a form of rounded box with hover ef
 ```html
 <input class="input" placeholder="Insert something" type="text">
 ```
+
+### .input-caption and invalid state
+
+A short helper or validation message under an `.input` or `.select`, 8px below it. Put it right after the input (after `.options` for a dropdown).
+
+#### Modifiers
+
+- `invalid`: red text with a warning icon, for validation errors
+
+#### Usage example
+[![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#invalid-input)
+```html
+<input class="input" type="text" aria-describedby="codename-caption">
+<span class="input-caption" id="codename-caption">Lowercase letters and underscores only.</span>
+
+<input class="input" type="text" aria-invalid="true" aria-describedby="slug-error">
+<span class="input-caption invalid" id="slug-error">Enter a URL slug without spaces.</span>
+```
+
+To mark a field invalid, set `aria-invalid="true"` on the input and show an `.input-caption.invalid` that the input points to with `aria-describedby`. Screen readers then announce the field as invalid and read the message. The `invalid` class on the input gives the same look but tells assistive technology nothing, so prefer the attribute. Remove both once the value is valid.
+
+In React: `<input className="input" aria-invalid={!!error} aria-describedby={error ? errorId : undefined} />`, followed by `{error && <span className="input-caption invalid" id={errorId}>{error}</span>}`.
+
+The stylekit doesn't style the browser's built-in `:invalid` / `:user-invalid` states, so fields with `required` or `pattern` don't turn red until you set `aria-invalid`.
 
 ### .status
 
@@ -498,6 +523,7 @@ Clone the repository and adjust the **styles.scss** file accordingly. The palett
 - Added namespaced `--kontent-*` aliases for every color custom property.
 - Added `styles/tailwind.css`, a Tailwind CSS v4 theme with the palette as `kontent-*` colors, plus instructions for using the stylekit with Tailwind, Less and Sass.
 - Moved the palette to `styles/_tokens.scss`, the single source for the custom properties, color classes and Tailwind theme.
+- Added an invalid state for `.input` and `.select` (`aria-invalid="true"` or `invalid`) and `.input-caption` / `.input-caption.invalid` for helper and error messages, matching the app's input alert state.
 - Documented the dropdown contract (classes, ARIA, keyboard) and added a React + TypeScript example component.
 - Added `styles/dropdown.js`, an accessible dropdown helper for plain HTML (keyboard, click outside to close, ARIA), and a focus style for keyboard-highlighted options.
 - Showcase: unique ids, the dropdown now uses the helper, and its CSS is regenerated on every build.
