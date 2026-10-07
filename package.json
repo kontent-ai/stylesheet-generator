@@ -5,11 +5,13 @@
   "style": "styles/styles.css",
   "description": "Predefined CSS for styling Kontent.ai custom elements and tools in line with application UI.",
   "scripts": {
-    "build": "sass --no-source-map styles/styles.layered.scss:styles/styles.layered.css styles/tailwind.scss:styles/tailwind.css && sass styles/styles.scss:styles/styles.css && node scripts/build-showcase.js"
+    "build": "sass --no-source-map styles/styles.layered.scss:styles/styles.layered.css styles/tailwind.scss:styles/tailwind.css && sass styles/styles.scss:styles/styles.css && node scripts/build-showcase.js",
+    "test": "node scripts/check-css.js && playwright test"
   },
   "author": "Daniel Pokorny",
   "license": "MIT",
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "sass": "^1.77.8"
   },
   "files": [

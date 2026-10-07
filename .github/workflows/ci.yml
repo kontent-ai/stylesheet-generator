@@ -1,0 +1,40 @@
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+name: ci
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build without Sass warnings
+        run: |
+          npm run build 2>&1 | tee build.log
+          if grep -iE 'warning|deprecation' build.log; then
+            echo "::error::The Sass build printed warnings"
+            exit 1
+          fi
+
+      - name: Check that the committed showcase matches the build
+        run: git diff --exit-code styles/showcase.html || (echo "::error::Run npm run build and commit styles/showcase.html" && exit 1)
+
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
