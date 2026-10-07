@@ -30,6 +30,11 @@
     font-family: var(--kontent-font-family);
 }
 
+// Form controls don't inherit the font by default.
+.input, .select, .button {
+    font-family: inherit;
+}
+
 .disabled {
     opacity: 0.5;
     pointer-events: none;
