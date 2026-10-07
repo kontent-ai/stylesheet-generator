@@ -259,6 +259,13 @@
     outline-offset: 3px;
 }
 
+// Unfilled controls get the ring on their edge.
+.icon-button:focus-visible,
+.tag-remove:focus-visible {
+    outline: 2px solid var(--kontent-focus-color);
+    outline-offset: 0;
+}
+
 // Invalid state: set aria-invalid="true" (or the `invalid` class) on the .input / .select.
 .input, .select {
     &[aria-invalid="true"], &.invalid {
@@ -414,6 +421,205 @@ input:checked ~ .slider:before {
 
 .checkbox label, .radio label {
     margin: 0;
+}
+
+// Tag: <span class="tag">Label<button class="tag-remove" aria-label="Remove Label"></button></span>
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    max-width: 100%;
+    height: 32px;
+    padding: 0 15px;
+    border: 1px solid var(--grey);
+    border-radius: 5000px;
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 18px;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    &:has(> .tag-remove) {
+        padding-right: 0;
+    }
+
+    @each $color-name, $color-value in $colors {
+        &.#{$color-name} {
+            border-color: $color-value;
+        }
+    }
+}
+
+.tag-remove {
+    align-self: stretch;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0 11px 0 12px;
+    border: 0;
+    border-radius: 0 5000px 5000px 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 250ms;
+
+    &::before {
+        content: "";
+        width: 16px;
+        height: 16px;
+        background-color: currentColor;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" stroke="black" stroke-width="1.5" stroke-linecap="round"/></svg>') center / 16px 16px no-repeat;
+        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" stroke="black" stroke-width="1.5" stroke-linecap="round"/></svg>') center / 16px 16px no-repeat;
+    }
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--purple) 20%, var(--white));
+    }
+}
+
+// Icon-only button: <button class="icon-button" aria-label="Delete"><svg>…</svg></button>
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0 4px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--black);
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 250ms, color 250ms;
+
+    > svg {
+        flex: none;
+        width: 16px;
+        height: 16px;
+    }
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--purple) 20%, var(--white));
+    }
+
+    &.destructive {
+        color: var(--red);
+
+        &:hover {
+            background-color: #a90000;
+            color: var(--white);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// Tooltip: shown on hover (after 700ms, like the app) and on keyboard focus inside .has-tooltip.
+.has-tooltip {
+    position: relative;
+    display: inline-flex;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    z-index: 1000;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 400px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #151515;
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    white-space: normal;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.03), 0 8px 32px rgba(0, 37, 84, 0.24);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%);
+    transition: opacity 150ms, visibility 0s 150ms;
+
+    // Arrow, 8×4px.
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        border: 4px solid transparent;
+        border-top-color: #151515;
+        transform: translateX(-50%);
+    }
+
+    &.bottom {
+        top: calc(100% + 8px);
+        bottom: auto;
+
+        &::after {
+            top: auto;
+            bottom: 100%;
+            border-top-color: transparent;
+            border-bottom-color: #151515;
+        }
+    }
+}
+
+.has-tooltip:hover > .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 150ms 700ms, visibility 0s 700ms;
+}
+
+.has-tooltip:has(:focus-visible) > .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 150ms;
+}
+
+// Skeleton: <span class="skeleton" style="width: 200px; height: 80px" aria-hidden="true"></span>
+.skeleton {
+    display: block;
+    max-width: 100%;
+    border-radius: 16px;
+    background-color: #c6c6c6;
+    background-image: linear-gradient(90deg, #c6c6c6, #dfdfdf, #c6c6c6);
+    background-attachment: fixed;
+    background-size: 100vw 1px;
+    animation: skeletonShimmer 1.5s linear infinite;
+
+    // One line of text tall.
+    &.text::before {
+        content: "A";
+        display: block;
+        visibility: hidden;
+    }
+
+    &.circle {
+        border-radius: 50%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        background-image: none;
+    }
+}
+
+@keyframes skeletonShimmer {
+    to {
+        background-position: 100vw;
+    }
 }
 
 /* HTML: <div class="loader"></div> */
