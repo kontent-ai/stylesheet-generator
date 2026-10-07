@@ -22,6 +22,66 @@ Alternatively, you can link the CSS from `node_modules`:
 <link rel="stylesheet" href="node_modules/@kontent-ai/stylekit/styles/styles.css">
 ```
 
+### Files
+
+| File | Use it when |
+| --- | --- |
+| `styles/styles.css` | Default. Plain, unlayered CSS that works everywhere. |
+| `styles/styles.layered.css` | You want your own CSS to always win. Same styles, wrapped in `@layer stylekit`. |
+| `styles/tailwind.css` | You use Tailwind CSS v4 and want the palette as Tailwind colors. |
+| `styles/styles.scss`, `styles/_tokens.scss` | You use Sass and want the source or the palette map. |
+| `styles/dropdown.js` | Plain HTML pages that need the [dropdown](#dropdown) to work without a framework. |
+
+### Cascade layers
+
+`styles.css` is unlayered, so its classes compete with your CSS on specificity and source order. To make your own CSS always win, use the layered build instead:
+
+```html
+<link rel="stylesheet" href="node_modules/@kontent-ai/stylekit/styles/styles.layered.css">
+```
+
+You can also put `styles.css` into a layer of your choice: `@import "@kontent-ai/stylekit/styles/styles.css" layer(vendor);`.
+
+> [!WARNING]
+> Any unlayered CSS beats layered CSS, even an element selector. If you use the layered build together with a global reset (e.g. Bootstrap's reboot sets `input { font-size: inherit }`), the reset overrides the stylekit. Put the reset in a layer declared before `stylekit`, or use `styles.css`.
+
+### Tailwind CSS (v4)
+
+Import the stylekit into Tailwind's `components` layer, then import the theme file:
+
+```css
+@import "tailwindcss";
+@import "@kontent-ai/stylekit/styles/styles.css" layer(components);
+@import "@kontent-ai/stylekit/styles/tailwind.css";
+```
+
+- `layer(components)` puts the stylekit above Tailwind's preflight, which would otherwise reset the padding and borders of `.input` and similar classes, and below the utilities, so `class="button bg-kontent-ocean"` works as expected.
+- `tailwind.css` adds every palette color as a `kontent-*` Tailwind color: `bg-kontent-purple`, `text-kontent-red`, `border-kontent-midnight-blue`, … including `kontent-white`. These follow any override of the stylekit custom properties. Without `styles.css` they fall back to the default hex values, so the theme file also works on its own.
+
+The component classes (`.button`, `.input`, …) stay plain CSS; there is no Tailwind plugin.
+
+### Less
+
+Copy the CSS into your output as-is (Less doesn't need to parse it):
+
+```less
+@import (inline) "node_modules/@kontent-ai/stylekit/styles/styles.css";
+```
+
+### Sass
+
+The SCSS source ships with the package. `@use` the styles to output the CSS, or `@use` only the tokens to get the palette map (`$palette`) and the color map used for the modifiers (`$colors`) without any CSS output:
+
+```scss
+@use "sass:map";
+@use "pkg:@kontent-ai/stylekit/styles/styles";        // all stylekit CSS
+@use "pkg:@kontent-ai/stylekit/styles/tokens" as kai;  // only the variables
+
+.my-thing { border-color: map.get(kai.$palette, "purple"); }
+```
+
+The `pkg:` URLs need Sass 1.71+ with the Node.js package importer. Otherwise, add `node_modules` to your load paths and drop the `pkg:` prefix.
+
 ## Colors
 
 There are twelve base colors defined in the CSS, wrapped in a matching number of color classes of the same name (minus the CSS custom property syntax `--`). These are as follows:
@@ -34,7 +94,9 @@ You can combine the color classes with most of the elements in the following man
 <div class="button red">Red button</div>
 ```
 
-If you want to use any of the colors in your own class, use CSS `var()` function, e.g. `color: var(--red)`.
+If you want to use any of the colors in your own class, use CSS `var()` function, e.g. `color: var(--kontent-red)`.
+
+Each color is defined as a short custom property (`--red`), which the stylekit classes use, and as a namespaced alias (`--kontent-red`). Use the `--kontent-*` aliases in your own code: they always point to the short names, so overriding `--red` to adjust the stylekit also changes `--kontent-red`, and they are the names that will stay if the short ones are ever removed.
 
 The color classes are `red`, `green`, `blue`, `purple`, `orange`, `ocean`, `midnight-blue`, `burgundy`, `light-grey`, `grey`, `dark-grey` and `black`. A `--white` (`#ffffff`) custom property is also defined for use in your own styles, but there is no `white` color class.
 
@@ -424,7 +486,7 @@ For pages that don't use a framework, the package ships `styles/dropdown.js`. It
 
 ## Contributing
 
-Clone the repository and adjust the **styles.scss** file accordingly. To test the styles locally, run `npm run build`. This builds the **styles.css** file and its map, and copies the fresh CSS and **dropdown.js** inline into **showcase.html**, between the `stylekit:css` / `stylekit:js` markers. Commit the updated **showcase.html**; **styles.css** is only published to npm.
+Clone the repository and adjust the **styles.scss** file accordingly. The palette lives in **_tokens.scss**: change it there and the custom properties, the `--kontent-*` aliases, the color classes and the Tailwind theme all follow. To test the styles locally, run `npm run build`. This builds **styles.css** (with its map), **styles.layered.css** and **tailwind.css**, and copies the fresh CSS and **dropdown.js** inline into **showcase.html**, between the `stylekit:css` / `stylekit:js` markers. Commit the updated **showcase.html**; **styles.css** is only published to npm.
 
 ## Changelog
 
@@ -432,6 +494,10 @@ Clone the repository and adjust the **styles.scss** file accordingly. To test th
 
 - Removed the `crimson` color modifiers. `--crimson` was never defined, so they produced invalid CSS.
 - Defined `--white`, so `.button.secondary` now gets the white background it was documented to have.
+- Added `styles/styles.layered.css`: the same styles inside `@layer stylekit`, so your own CSS always wins. The default `styles.css` is unchanged and stays unlayered.
+- Added namespaced `--kontent-*` aliases for every color custom property.
+- Added `styles/tailwind.css`, a Tailwind CSS v4 theme with the palette as `kontent-*` colors, plus instructions for using the stylekit with Tailwind, Less and Sass.
+- Moved the palette to `styles/_tokens.scss`, the single source for the custom properties, color classes and Tailwind theme.
 - Documented the dropdown contract (classes, ARIA, keyboard) and added a React + TypeScript example component.
 - Added `styles/dropdown.js`, an accessible dropdown helper for plain HTML (keyboard, click outside to close, ARIA), and a focus style for keyboard-highlighted options.
 - Showcase: unique ids, the dropdown now uses the helper, and its CSS is regenerated on every build.
