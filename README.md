@@ -24,6 +24,8 @@ Alternatively, you can link the CSS from `node_modules`:
 
 ### Files
 
+The package root (`@kontent-ai/stylekit`) resolves to `styles/styles.css`, or to `styles/styles.scss` for Sass. Everything in `styles/` can be imported by its path, e.g. `@kontent-ai/stylekit/styles/dropdown.js`. The `exports` field allows only these paths.
+
 | File | Use it when |
 | --- | --- |
 | `styles/styles.css` | Default. Plain, unlayered CSS that works everywhere. |
@@ -83,7 +85,23 @@ The SCSS source ships with the package. `@use` the styles to output the CSS, or 
 .my-thing { border-color: map.get(kai.$palette, "purple"); }
 ```
 
-The `pkg:` URLs need Sass 1.71+ with the Node.js package importer. Otherwise, add `node_modules` to your load paths and drop the `pkg:` prefix.
+The `pkg:` URLs need Sass 1.71+ with the Node.js package importer. Otherwise, add `node_modules` to your load paths and drop the `pkg:` prefix. `@use "pkg:@kontent-ai/stylekit"` (the package root) also resolves to the SCSS.
+
+#### Configuring the palette
+
+The token variables are `!default`, so you can configure them when you `@use` the styles. Use `$custom-colors` to add colors or change existing ones. It's merged into the palette, and each new color gets its custom property, alias, color class modifiers and Tailwind color:
+
+```scss
+@use "pkg:@kontent-ai/stylekit/styles/styles" with (
+    $custom-colors: ("teal": #00838f, "red": #e00000)
+);
+```
+
+```html
+<div class="button teal">Teal button</div>
+```
+
+Avoid replacing `$palette` as a whole. The components use `--purple`, `--grey`, `--red` and other base colors directly, so a palette without them produces broken styles.
 
 ## Colors
 
@@ -109,6 +127,7 @@ The color classes are `red`, `crimson`, `green`, `blue`, `purple`, `orange`, `oc
 ## Global helpers
 
 - `.disabled`: can be added to any element (button, input, switch, checkbox, radio, dropdown…); sets `opacity` to 0.5 and disables pointer events.
+- `.custom-element-root`: opt-in page reset for custom elements and custom apps. Put it on `<body>` to remove the browser's default 8px margin, so the content lines up inside the iframe. It also sets the font.
 - Focus ring: on keyboard focus (`:focus-visible`), `.input` and `.select` get a 2px ring on their edge (red when invalid). `.button`, and the visible part of a switch, checkbox or radio, get a 2px outline 3px outside the element. The color is `--kontent-focus-color` (`#0093ff`, the app's focus color); override it if you need another one. A `.button` on a `<div>` only gets focus if you add `tabindex="0"`, so prefer `<button class="button">`.
 - Font: `html`, `body` and any `.custom-element` wrapper get `font-family: var(--kontent-font-family)`, which is `Inter, sans-serif`. See [Font](#font).
 
@@ -650,6 +669,9 @@ Run `npm test` after building. It checks that every CSS custom property the buil
 - Switched the font from `sans-serif` to Inter, the Kontent.ai app's font, bundled with the package (56 kB Latin subset, SIL Open Font License 1.1). Override it with `--kontent-font-family`.
 - Fixed the input placeholder style, which never applied because of a `:placeholder` typo. Placeholders are now `#6f6f6f` (the app's hint color) instead of the illegible `--light-grey` the README used to promise.
 - Added a visible keyboard focus ring (`#0093ff`, `--kontent-focus-color`) to inputs, dropdowns, buttons, switches, checkboxes and radios, matching the app.
+- Made the Sass tokens configurable (`!default`, forwarded from `styles.scss`). `$custom-colors` adds or overrides colors.
+- Added `.custom-element-root`, an opt-in `<body>` reset for custom elements.
+- Added an `exports` field to `package.json`: the package root resolves to the CSS (or the SCSS for Sass), and every file under `styles/` stays importable by path.
 - Added `.tag` with `.tag-remove`, `.icon-button` (with `destructive`), a CSS-only tooltip (`.has-tooltip` + `.tooltip`, `.tooltip.bottom`) and `.skeleton` (`text`, `circle`), all matching the app's components.
 - Added `.input-label` for field labels, and documented `.input` on `<textarea>`.
 - Added an invalid state for `.input` and `.select` (`aria-invalid="true"` or `invalid`) and `.input-caption` / `.input-caption.invalid` for helper and error messages, matching the app's input alert state.

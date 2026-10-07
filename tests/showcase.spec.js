@@ -168,3 +168,10 @@ test('skeleton animates unless reduced motion is preferred', async ({ page }) =>
     await textSkeleton.evaluate((element) => { element.parentElement.style.lineHeight = '24px'; });
     await expect(textSkeleton).toHaveCSS('height', '24px');
 });
+
+test('custom-element-root removes the body margin', async ({ page }) => {
+    const body = page.locator('body');
+    await expect(body).toHaveCSS('margin-top', '8px');
+    await body.evaluate((element) => element.classList.add('custom-element-root'));
+    await expect(body).toHaveCSS('margin-top', '0px');
+});

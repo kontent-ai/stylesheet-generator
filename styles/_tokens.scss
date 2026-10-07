@@ -1,6 +1,10 @@
+@use "sass:list";
 @use "sass:map";
+
 // Single source of the stylekit palette. Every color here becomes a `--<name>` custom
 // property, a `--kontent-<name>` alias, a `.<name>` color class and a Tailwind color.
+// All variables are !default, so they can be configured:
+//   @use "@kontent-ai/stylekit/styles/styles" with ($custom-colors: ("teal": #00838f));
 $palette: (
     "red": #db0000,
     "crimson": #cf3a4e, // Kontent.ai brand primary red
@@ -15,17 +19,31 @@ $palette: (
     "dark-grey": #525252,
     "grey": #a8a8a8,
     "black": #000000,
-);
+) !default;
+
+// Extra colors merged into the palette, so you can add colors without repeating the defaults.
+$custom-colors: () !default;
+$palette: map.merge($palette, $custom-colors);
 
 // Custom properties that have no color class.
 $extra-properties: (
     "white": #ffffff,
-);
+) !default;
 
-// Order in which the color class modifiers are generated.
-$color-class-order: "green", "red", "blue", "purple", "orange", "burgundy", "crimson", "midnight-blue", "ocean", "light-grey", "dark-grey", "grey", "black";
+// Order in which the color class modifiers are generated. Palette colors missing from the list
+// are appended, and listed names missing from the palette are skipped.
+$color-class-order: "green", "red", "blue", "purple", "orange", "burgundy", "crimson", "midnight-blue", "ocean", "light-grey", "dark-grey", "grey", "black" !default;
+
+$_order: $color-class-order;
+@each $name in map.keys($palette) {
+    @if not list.index($_order, $name) {
+        $_order: list.append($_order, $name, $separator: comma);
+    }
+}
 
 $colors: ();
-@each $name in $color-class-order {
-    $colors: map.merge($colors, ($name: var(--#{$name})));
+@each $name in $_order {
+    @if map.has-key($palette, $name) {
+        $colors: map.merge($colors, ($name: var(--#{$name})));
+    }
 }
