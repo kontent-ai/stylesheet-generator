@@ -11,6 +11,7 @@
     --dark-grey: #525252;
     --grey: #a8a8a8;
     --black: #000000;
+    --white: #ffffff;
 }
 
 $colors: (
@@ -20,7 +21,6 @@ $colors: (
     "purple": var(--purple),
     "orange": var(--orange),
     "burgundy": var(--burgundy),
-    "crimson": var(--crimson),
     "midnight-blue": var(--midnight-blue),
     "ocean": var(--ocean),
     "light-grey": var(--light-grey),
@@ -219,16 +219,17 @@ $colors: (
     padding: 8px 16px;
     cursor: pointer;
 
-    &:hover {
+    &:hover, &:focus-visible {
         background-color: var(--light-grey);
+        outline: none;
     }
 
     &.selected {
         color: var(--purple);
-        background-color: color-mix(in srgb, var(--purple) 10%, transparent);;
+        background-color: color-mix(in srgb, var(--purple) 10%, transparent);
     }
 
-    &.selected:hover {
+    &.selected:hover, &.selected:focus-visible {
         background-color: color-mix(in srgb, var(--purple) 25%, transparent);
     }
 }
