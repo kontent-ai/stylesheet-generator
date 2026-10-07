@@ -36,8 +36,15 @@ You can combine the color classes with most of the elements in the following man
 
 If you want to use any of the colors in your own class, use CSS `var()` function, e.g. `color: var(--red)`.
 
+The color classes are `red`, `green`, `blue`, `purple`, `orange`, `ocean`, `midnight-blue`, `burgundy`, `light-grey`, `grey`, `dark-grey` and `black`. A `--white` (`#ffffff`) custom property is also defined for use in your own styles, but there is no `white` color class.
+
 > [!NOTE]  
 > Class names do not correspond to their CSS color counterparts. All colors are custom, matching the Kontent.ai application interface.
+
+## Global helpers
+
+- `.disabled`: can be added to any element (button, input, switch, checkbox, radio, dropdown…); sets `opacity` to 0.5 and disables pointer events.
+- Font: `html`, `body` and any `.custom-element` wrapper get `font-family: sans-serif`.
 
 ## Basic styles
 
@@ -75,7 +82,7 @@ Base class for all kinds of inputs, comes in a form of rounded box with hover ef
 #### Modifiers
 
 - `[color-class-name]`: affects `border-color` and its `:hover` state
-- `type="text"`: sets placeholder color to light-grey and cursor to `text`
+- `type="text"`: sets cursor to `text`
 - `disabled`: sets `opacity` to 0.5 and disables pointer events
 
 #### Usage example
@@ -156,6 +163,8 @@ Multiple classes meant to be used together to achieve the desired style.
 
 Modified checkbox in form of an animated on/off switch.
 
+Markup: a `<label class="switch">` that contains the `<input type="checkbox">`, immediately followed by a `<span class="slider">`. The text label can go before the input. The input must come before `.slider` because the styles use the `input:checked ~ .slider` sibling selector.
+
 #### Classes
 - `.switch`, `.slider`
 
@@ -168,7 +177,7 @@ Modified checkbox in form of an animated on/off switch.
 ```html
 <label class="switch">
     Switch
-    <input type="checkbox" id="switch">
+    <input type="checkbox">
     <span class="slider red"></span>
 </label>
 ```
@@ -176,6 +185,8 @@ Modified checkbox in form of an animated on/off switch.
 ### Checkbox
 
 Animated checkbox in UI colors.
+
+Markup: a `<label class="checkbox">` that contains the `<input type="checkbox">`, immediately followed by a `<span class="checkmark">`, then the label text.
 
 #### Classes
 - `.checkbox`, `.checkmark`
@@ -187,7 +198,7 @@ Animated checkbox in UI colors.
 [![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#checkbox-and-radio)
 ```html
 <label class="checkbox">
-    <input type="checkbox" id="checkbox">
+    <input type="checkbox">
     <span class="checkmark"></span>
     Expert
 </label>
@@ -196,6 +207,8 @@ Animated checkbox in UI colors.
 ### Radio
 
 Animated radio buttons in UI colors.
+
+Markup: a `<label class="radio">` that contains the `<input type="radio">`, immediately followed by a `<span class="radio-button">`, then the label text. Give radios in the same group the same `name`.
 
 #### Classes
 - `.radio`, `.radio-button`
@@ -221,7 +234,7 @@ Animated radio buttons in UI colors.
 
 ### Dropdown
 
-Input in form of an animated dropdown menu with multiple options.
+Input in form of an animated dropdown menu with multiple options. The markup is a `.select` element immediately followed by its `.options` list.
 
 #### Classes
 
@@ -231,26 +244,54 @@ Input in form of an animated dropdown menu with multiple options.
 
 - `.option.selected`: highlights the currently selected option in the dropdown
 - `.select.open`: when the `open` class is set, it applies animated 180 degree rotation to the arrow. Rotates back when the class is removed.
+- `[color-class-name]` on `.select`: affects `border-color` and its `:hover` state
 - `disabled`: sets `opacity` to 0.5 and disables pointer events
 
 #### Usage example
 [![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#select)
 ```html
-<div class="select">Pick an option</div> 
+<div class="select">Pick an option</div>
 <div class="options">
     <div class="option">Available option</div>
-    <div class="option selected">Selected option</div>
+    <div class="option selected" data-value="selected">Selected option</div>
 </div>
+
+<script src="node_modules/@kontent-ai/stylekit/styles/dropdown.js"></script>
+<script>
+    StylekitDropdown.initDropdowns();
+</script>
 ```
 
-> [!NOTE]  
-> Above example doesn't work on its own but expects JavaScript to handle toggle and selection events.
->
-> It's possible to use the `select` class with the HTML `<select>` element by removing its default styling and applying the class on a wrapper div.
+#### JavaScript
+
+CSS alone can't open or close the dropdown, so the package ships `styles/dropdown.js`. It's a small helper with no dependencies:
+
+- `StylekitDropdown.initDropdowns(root = document)` sets up every `.select` that is immediately followed by an `.options` element, or that points to one with `aria-controls`. `StylekitDropdown.initDropdown(select, options?)` sets up a single dropdown. Both are safe to call more than once and return `{ open(), close(), destroy() }` handles.
+- Click or press Enter, Space or the arrow keys on `.select` to open the dropdown. Arrow keys, Home and End move between options. Enter, Space or a click picks an option. Escape, Tab or a click outside closes the dropdown.
+- Picking an option moves `.selected` to that option, replaces the text of `.select` with the option's text, and fires a bubbling `change` event on `.select` with `event.detail = { value, option }`. `value` is the option's `data-value` attribute, or its text if there is none.
+- The helper sets the ARIA roles (`combobox`, `listbox`, `option`), `aria-expanded`, `aria-selected` and `tabindex`, and hides the list with the `hidden` attribute.
+- A `.select.disabled` dropdown never opens and is taken out of the tab order.
+
+With a bundler: `const { initDropdowns } = require('@kontent-ai/stylekit/styles/dropdown.js');` (or the equivalent `import`).
+
+If you'd rather wire the dropdown yourself, your code needs to: show and hide `.options`, toggle `open` on `.select`, move `selected` to the picked `.option`, and handle the keyboard and clicks outside the dropdown.
+
+> [!NOTE]
+> You can also use the `select` class on a native `<select>` element. Its default styling is removed by `appearance: none`, so no JavaScript is needed, but the options list is drawn by the browser.
 
 ## Contributing
 
-Clone the repository and adjust the **styles.scss** file accordingly. To test the styles locally, run `npm run convert` to build the **styles.css** file and its map.
+Clone the repository and adjust the **styles.scss** file accordingly. To test the styles locally, run `npm run build`. This builds the **styles.css** file and its map, and copies the fresh CSS and **dropdown.js** inline into **showcase.html**, between the `stylekit:css` / `stylekit:js` markers. Commit the updated **showcase.html**; **styles.css** is only published to npm.
+
+## Changelog
+
+### 1.1.0
+
+- Removed the `crimson` color modifiers. `--crimson` was never defined, so they produced invalid CSS.
+- Defined `--white`, so `.button.secondary` now gets the white background it was documented to have.
+- Added `styles/dropdown.js`, an accessible helper for the dropdown (keyboard, click outside to close, ARIA), and a focus style for keyboard-highlighted options.
+- Showcase: unique ids, the dropdown now uses the helper, and its CSS is regenerated on every build.
+- README: documented the global helpers, the exact switch/checkbox/radio markup and the dropdown helper.
 
 <!--[ Buttons ]-->
 
