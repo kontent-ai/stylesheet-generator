@@ -8,6 +8,7 @@
 <style>
 :root {
   --red: #db0000;
+  --crimson: #cf3a4e;
   --green: #007f51;
   --blue: #006cdc;
   --purple: #5b4ff5;
@@ -21,6 +22,7 @@
   --black: #000000;
   --white: #ffffff;
   --kontent-red: var(--red);
+  --kontent-crimson: var(--crimson);
   --kontent-green: var(--green);
   --kontent-blue: var(--blue);
   --kontent-purple: var(--purple);
@@ -67,6 +69,9 @@
 .section.burgundy {
   border-color: var(--burgundy);
 }
+.section.crimson {
+  border-color: var(--crimson);
+}
 .section.midnight-blue {
   border-color: var(--midnight-blue);
 }
@@ -106,6 +111,9 @@
 }
 .section.info.burgundy {
   background-color: color-mix(in srgb, var(--burgundy) 10%, transparent);
+}
+.section.info.crimson {
+  background-color: color-mix(in srgb, var(--crimson) 10%, transparent);
 }
 .section.info.midnight-blue {
   background-color: color-mix(in srgb, var(--midnight-blue) 10%, transparent);
@@ -194,6 +202,14 @@
 .button.burgundy:hover {
   background-color: color-mix(in srgb, var(--black) 20%, var(--burgundy));
   border-color: color-mix(in srgb, var(--black) 20%, var(--burgundy));
+}
+.button.crimson {
+  background-color: var(--crimson);
+  border-color: var(--crimson);
+}
+.button.crimson:hover {
+  background-color: color-mix(in srgb, var(--black) 20%, var(--crimson));
+  border-color: color-mix(in srgb, var(--black) 20%, var(--crimson));
 }
 .button.midnight-blue {
   background-color: var(--midnight-blue);
@@ -299,6 +315,12 @@
 .button.secondary.burgundy:hover {
   background-color: color-mix(in srgb, var(--burgundy) 20%, transparent);
 }
+.button.secondary.crimson {
+  border: 2px solid var(--crimson);
+}
+.button.secondary.crimson:hover {
+  background-color: color-mix(in srgb, var(--crimson) 20%, transparent);
+}
 .button.secondary.midnight-blue {
   border: 2px solid var(--midnight-blue);
 }
@@ -382,6 +404,11 @@
   border-color: var(--burgundy);
   color: white;
 }
+.status.crimson {
+  background: var(--crimson);
+  border-color: var(--crimson);
+  color: white;
+}
 .status.midnight-blue {
   background: var(--midnight-blue);
   border-color: var(--midnight-blue);
@@ -463,6 +490,12 @@
 }
 .input.burgundy:active, .input.burgundy:focus-visible, .input.burgundy:hover, .select.burgundy:active, .select.burgundy:focus-visible, .select.burgundy:hover {
   border-color: color-mix(in srgb, var(--black) 30%, var(--burgundy));
+}
+.input.crimson, .select.crimson {
+  border-color: var(--crimson);
+}
+.input.crimson:active, .input.crimson:focus-visible, .input.crimson:hover, .select.crimson:active, .select.crimson:focus-visible, .select.crimson:hover {
+  border-color: color-mix(in srgb, var(--black) 30%, var(--crimson));
 }
 .input.midnight-blue, .select.midnight-blue {
   border-color: var(--midnight-blue);
@@ -614,6 +647,9 @@ input:checked ~ .slider.orange {
 input:checked ~ .slider.burgundy {
   background-color: var(--burgundy);
 }
+input:checked ~ .slider.crimson {
+  background-color: var(--crimson);
+}
 input:checked ~ .slider.midnight-blue {
   background-color: var(--midnight-blue);
 }
@@ -718,6 +754,9 @@ input:checked ~ .slider:before {
 }
 .loader.burgundy {
   --dot-color: var(--burgundy);
+}
+.loader.crimson {
+  --dot-color: var(--crimson);
 }
 .loader.midnight-blue {
   --dot-color: var(--midnight-blue);
