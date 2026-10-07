@@ -37,8 +37,19 @@
   --kontent-white: var(--white);
 }
 
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/InterVariable.woff2") format("woff2");
+}
+:root {
+  --kontent-font-family: Inter, sans-serif;
+}
+
 .custom-element, body, html {
-  font-family: sans-serif;
+  font-family: var(--kontent-font-family);
 }
 
 .disabled {
