@@ -46,6 +46,7 @@
 }
 :root {
   --kontent-font-family: Inter, sans-serif;
+  --kontent-focus-color: #0093ff;
 }
 
 .custom-element, body, html {
@@ -459,7 +460,7 @@
   font-size: 14px;
   border-radius: 20px;
   border: 1px solid var(--grey);
-  transition: border-color 250ms cubic-bezier(0.23, 1, 0.32, 1) 50ms, color;
+  transition: border-color 250ms cubic-bezier(0.23, 1, 0.32, 1) 50ms, color, box-shadow 250ms;
   width: fit-content;
   text-align: left;
   padding: 10px 12px;
@@ -604,8 +605,22 @@
 .input[type=text] {
   cursor: text;
 }
-.input[type=text]:placeholder {
-  color: var(--light-grey);
+
+.input::placeholder {
+  color: #6f6f6f;
+  opacity: 1;
+}
+
+.input:focus-visible, .select:focus-visible {
+  box-shadow: 0 0 0 2px var(--kontent-focus-color), inset 0 0 3px var(--kontent-focus-color);
+}
+
+.button:focus-visible,
+.switch input:focus-visible ~ .slider,
+.checkbox input:focus-visible ~ .checkmark,
+.radio input:focus-visible ~ .radio-button {
+  outline: 2px solid var(--kontent-focus-color);
+  outline-offset: 3px;
 }
 
 .input[aria-invalid=true], .input.invalid, .select[aria-invalid=true], .select.invalid {
@@ -613,6 +628,9 @@
 }
 .input[aria-invalid=true]:active, .input[aria-invalid=true]:focus-visible, .input[aria-invalid=true]:hover, .input.invalid:active, .input.invalid:focus-visible, .input.invalid:hover, .select[aria-invalid=true]:active, .select[aria-invalid=true]:focus-visible, .select[aria-invalid=true]:hover, .select.invalid:active, .select.invalid:focus-visible, .select.invalid:hover {
   border-color: #a90000;
+}
+.input[aria-invalid=true]:focus-visible, .input.invalid:focus-visible, .select[aria-invalid=true]:focus-visible, .select.invalid:focus-visible {
+  box-shadow: 0 0 0 2px var(--red), inset 0 0 3px var(--red);
 }
 
 .input-caption {
