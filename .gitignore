@@ -132,4 +132,5 @@ dist
 # custom
 
 **/styles.css
-**/styles.css.map
+**/styles.css.map**/styles.layered.css
+**/tailwind.css

@@ -1,0 +1,7 @@
+// Same styles as styles.scss, wrapped in the `stylekit` cascade layer, so any unlayered CSS
+// of yours wins over the stylekit without specificity fights.
+@use "sass:meta";
+
+@layer stylekit {
+    @include meta.load-css("styles");
+}

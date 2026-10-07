@@ -1,33 +1,16 @@
-:root {
-    --red: #db0000;
-    --green: #007f51;
-    --blue: #006cdc;
-    --purple: #5b4ff5;
-    --orange: #ff5733;
-    --burgundy: #500c4b;
-    --midnight-blue: #022049;
-    --ocean: #1b5b68;
-    --light-grey: #dcdcdc;
-    --dark-grey: #525252;
-    --grey: #a8a8a8;
-    --black: #000000;
-    --white: #ffffff;
-}
+@use "sass:map";
+@use "tokens" as *;
 
-$colors: (
-    "green": var(--green),
-    "red": var(--red),
-    "blue": var(--blue),
-    "purple": var(--purple),
-    "orange": var(--orange),
-    "burgundy": var(--burgundy),
-    "midnight-blue": var(--midnight-blue),
-    "ocean": var(--ocean),
-    "light-grey": var(--light-grey),
-    "dark-grey": var(--dark-grey),
-    "grey": var(--grey),
-    "black": var(--black),
-);
+:root {
+    @each $name, $value in map.merge($palette, $extra-properties) {
+        --#{$name}: #{$value};
+    }
+
+    // Namespaced aliases, safer to use in your own code. They follow any override of the short names.
+    @each $name, $value in map.merge($palette, $extra-properties) {
+        --kontent-#{$name}: var(--#{$name});
+    }
+}
 
 .custom-element, body, html {
     font-family: sans-serif;
