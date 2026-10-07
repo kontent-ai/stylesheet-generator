@@ -1099,6 +1099,25 @@ input:checked ~ .slider:before {
 	          margin-left: 15vw;
 	      }
 
+	      .swatches {
+	          display: grid;
+	          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	          gap: 16px;
+	      }
+
+	      .swatch {
+	          display: flex;
+	          flex-direction: column;
+	          gap: 4px;
+	          font-size: 12px;
+	      }
+
+	      .swatch span {
+	          height: 48px;
+	          border-radius: 8px;
+	          border: 1px solid var(--light-grey);
+	      }
+
 	      .column {
 	          display: flex;
 	          flex-direction: column;
@@ -1359,48 +1378,72 @@ input:checked ~ .slider:before {
 <body>
 	<div class="custom-element">
 		<h1>Kontent.ai stylekit showcase</h1>
+		<p>Every component of <code>@kontent-ai/stylekit</code>, rendered with the built CSS. Press Tab to move through the controls and see the keyboard focus rings.</p>
 		<hr>
+		<h2 id="colors"><a href="#colors">Colors</a></h2>
+		<p>Combine a color class with most components, e.g. <code>class="button crimson"</code>, or use the custom property, e.g. <code>var(--kontent-crimson)</code>.</p>
+		<div class="swatches">
+			<div class="swatch"><span style="background: var(--kontent-red);"></span><code>.red</code></div>
+			<div class="swatch"><span style="background: var(--kontent-crimson);"></span><code>.crimson</code></div>
+			<div class="swatch"><span style="background: var(--kontent-green);"></span><code>.green</code></div>
+			<div class="swatch"><span style="background: var(--kontent-blue);"></span><code>.blue</code></div>
+			<div class="swatch"><span style="background: var(--kontent-purple);"></span><code>.purple</code></div>
+			<div class="swatch"><span style="background: var(--kontent-orange);"></span><code>.orange</code></div>
+			<div class="swatch"><span style="background: var(--kontent-ocean);"></span><code>.ocean</code></div>
+			<div class="swatch"><span style="background: var(--kontent-midnight-blue);"></span><code>.midnight-blue</code></div>
+			<div class="swatch"><span style="background: var(--kontent-burgundy);"></span><code>.burgundy</code></div>
+			<div class="swatch"><span style="background: var(--kontent-light-grey);"></span><code>.light-grey</code></div>
+			<div class="swatch"><span style="background: var(--kontent-grey);"></span><code>.grey</code></div>
+			<div class="swatch"><span style="background: var(--kontent-dark-grey);"></span><code>.dark-grey</code></div>
+			<div class="swatch"><span style="background: var(--kontent-black);"></span><code>.black</code></div>
+		</div>
+		<div class="row" style="margin-top: 16px;">
+			<button class="button crimson">Crimson</button>
+			<button class="button midnight-blue">Midnight blue</button>
+			<div class="status burgundy">Burgundy</div>
+			<span class="tag green">Green border</span>
+		</div>
 		<hr>
 		<h2 id="button"><a href="#button">Button</a></h2>
 		<div class="row">
-			<div class="button">
+			<button class="button">
 				Click me
-			</div>
-			<div class="button ocean">
+			</button>
+			<button class="button ocean">
 				Click me
-			</div>
-			<div class="button orange no-caps">
+			</button>
+			<button class="button orange no-caps">
 				Click me
-			</div>
-			<div class="button disabled">
+			</button>
+			<button class="button disabled">
 				Disabled
-			</div>
+			</button>
 		</div>
 		<hr>
 		<h2 id="button-secondary"><a href="#button-secondary">Button secondary</a></h2>
 		<div class="row">
-			<div class="button secondary">
+			<button class="button secondary">
 				Click me
-			</div>
-			<div class="button secondary ocean">
+			</button>
+			<button class="button secondary ocean">
 				Click me
-			</div>
-			<div class="button secondary orange no-caps">
+			</button>
+			<button class="button secondary orange no-caps">
 				Click me
-			</div>
-			<div class="button secondary disabled">
+			</button>
+			<button class="button secondary disabled">
 				Disabled
-			</div>
+			</button>
 		</div>
 		<hr>
 		<h2 id="button-destructive"><a href="#button-destructive">Button destructive</a></h2>
 		<div class="row">
-			<div class="button destructive">
+			<button class="button destructive">
 				Delete
-			</div>
-			<div class="button destructive disabled">
+			</button>
+			<button class="button destructive disabled">
 				Delete disabled
-			</div>
+			</button>
 		</div>
 		<hr>
 		<h2 id="status"><a href="#status">Status</a></h2>
@@ -1424,15 +1467,18 @@ input:checked ~ .slider:before {
 		<h2 id="invalid-input"><a href="#invalid-input">Caption and invalid state</a></h2>
 		<div class="row">
 			<div>
-				<input class="input" placeholder="Codename" type="text" aria-describedby="codename-caption">
+				<label class="input-label" for="codename-input">Codename</label>
+				<input class="input" id="codename-input" placeholder="e.g. hero_banner" type="text" aria-describedby="codename-caption">
 				<span class="input-caption" id="codename-caption">Lowercase letters and underscores only.</span>
 			</div>
 			<div>
-				<input class="input" type="text" value="Hello world" aria-invalid="true" aria-describedby="slug-error">
+				<label class="input-label" for="slug-input">URL slug</label>
+				<input class="input" id="slug-input" type="text" value="Hello world" aria-invalid="true" aria-describedby="slug-error">
 				<span class="input-caption invalid" id="slug-error">Enter a URL slug without spaces.</span>
 			</div>
 			<div>
-				<div class="select" aria-invalid="true" aria-describedby="car-error">Choose your car</div>
+				<span class="input-label" id="required-car-label">Company car</span>
+				<div class="select" aria-labelledby="required-car-label" aria-invalid="true" aria-describedby="car-error">Choose your car</div>
 				<div class="options">
 					<div class="option">Volvo</div>
 					<div class="option">Skoda</div>
@@ -1511,17 +1557,17 @@ input:checked ~ .slider:before {
 				<h1>Heading</h1>
 				<h2>Subheading</h2>
 				<p>Morbi scelerisque luctus velit. Nulla est. Duis risus. Aenean placerat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis risus. Nullam dapibus fermentum ipsum. Praesent id justo in neque elementum ultrices.</p>
-				<div class="button ocean">
+				<button class="button ocean">
 					Click me
-				</div>
+				</button>
 			</div><br>
 			<div class="section red">
 				<h1>Heading</h1>
 				<h2>Subheading</h2>
 				<p>Morbi scelerisque luctus velit. Nulla est. Duis risus. Aenean placerat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis risus. Nullam dapibus fermentum ipsum. Praesent id justo in neque elementum ultrices.</p>
-				<div class="button red">
+				<button class="button red">
 					Click me
-				</div>
+				</button>
 			</div>
 		</div>
 		<hr>
@@ -1540,7 +1586,8 @@ input:checked ~ .slider:before {
 		<h2 id="select"><a href="#select">Dropdown</a></h2>
 		<div class="row">
 			<div>
-				<div class="select">Choose your car</div>
+				<span class="input-label" id="car-label">Car</span>
+				<div class="select" aria-labelledby="car-label">Choose your car</div>
 				<div class="options">
 					<div class="option">Volvo</div>
 					<div class="option selected">Mercedes</div>
@@ -1549,7 +1596,8 @@ input:checked ~ .slider:before {
 				</div>
 			</div>
 			<div>
-				<div class="select disabled">Disabled dropdown</div>
+				<span class="input-label" id="disabled-car-label">Car (disabled)</span>
+				<div class="select disabled" aria-labelledby="disabled-car-label">Disabled dropdown</div>
 				<div class="options">
 					<div class="option">Volvo</div>
 					<div class="option selected">Mercedes</div>

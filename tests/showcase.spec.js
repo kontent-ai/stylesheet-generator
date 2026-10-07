@@ -35,10 +35,10 @@ test.afterEach(async ({ page }, testInfo) => {
 });
 
 test('renders every section', async ({ page }) => {
-    for (const id of ['button', 'status', 'text-input', 'form-field', 'invalid-input', 'switch', 'loader', 'checkbox-and-radio', 'tag', 'icon-button', 'skeleton', 'section', 'section-info', 'select']) {
+    for (const id of ['colors', 'button', 'status', 'text-input', 'form-field', 'invalid-input', 'switch', 'loader', 'checkbox-and-radio', 'tag', 'icon-button', 'skeleton', 'section', 'section-info', 'select']) {
         await expect(page.locator(`#${id}`)).toBeVisible();
     }
-    await expect(page.locator('.button').first()).toHaveCSS('background-color', 'rgb(91, 79, 245)');
+    await expect(page.locator('#button + .row .button').first()).toHaveCSS('background-color', 'rgb(91, 79, 245)');
 });
 
 test('loads the bundled Inter font', async ({ page }) => {
@@ -137,7 +137,7 @@ test('tags have the app size and a removable variant', async ({ page }) => {
 });
 
 test('icon buttons take their name from the tooltip', async ({ page }) => {
-    const deleteButton = page.getByRole('button', { name: 'Delete', exact: true });
+    const deleteButton = page.locator('.has-tooltip').getByRole('button', { name: 'Delete', exact: true });
     await expect(deleteButton).toHaveCSS('height', '24px');
     await expect(deleteButton).toHaveCSS('color', red);
 });
@@ -174,4 +174,48 @@ test('custom-element-root removes the body margin', async ({ page }) => {
     await expect(body).toHaveCSS('margin-top', '8px');
     await body.evaluate((element) => element.classList.add('custom-element-root'));
     await expect(body).toHaveCSS('margin-top', '0px');
+});
+
+test('every color class and its custom property are defined', async ({ page }) => {
+    const colors = ['red', 'crimson', 'green', 'blue', 'purple', 'orange', 'ocean', 'midnight-blue', 'burgundy', 'light-grey', 'grey', 'dark-grey', 'black'];
+    const results = await page.evaluate((names) => names.map((name) => {
+        const status = document.createElement('div');
+        status.className = `status ${name}`;
+        document.body.append(status);
+        const value = getComputedStyle(document.documentElement).getPropertyValue(`--kontent-${name}`).trim();
+        const background = getComputedStyle(status).backgroundColor;
+        status.remove();
+        return { name, value, background };
+    }), colors);
+    for (const { name, value, background } of results) {
+        expect(value, `--kontent-${name}`).not.toBe('');
+        expect(background, `.status.${name}`).not.toBe('rgba(0, 0, 0, 0)');
+    }
+    await expect(page.locator('.button.crimson')).toHaveCSS('background-color', 'rgb(207, 58, 78)');
+});
+
+test('showcase buttons are real buttons with a focus ring', async ({ page }) => {
+    expect(await page.locator('div.button').count()).toBe(0);
+    const button = page.locator('#button + .row button.button').first();
+    await tabTo(page, button);
+    await expect(button).toHaveCSS('outline-color', focusBlue);
+    await expect(button).toHaveCSS('outline-offset', '3px');
+});
+
+test('every dropdown and form control has an accessible name', async ({ page }) => {
+    for (const label of ['Car', 'Company car', 'Car (disabled)']) {
+        await expect(page.getByRole('combobox', { name: label, exact: true })).toBeAttached();
+    }
+    const unnamed = await page.evaluate(() => [...document.querySelectorAll('input, textarea, button, [role="combobox"]')]
+        .filter((element) => {
+            const labelledBy = element.getAttribute('aria-labelledby');
+            return !element.getAttribute('aria-label')
+                && !(labelledBy && document.getElementById(labelledBy)?.textContent.trim())
+                && !(element.labels && element.labels.length)
+                && !element.closest('label')
+                && !(['BUTTON'].includes(element.tagName) && element.textContent.trim())
+                && !element.getAttribute('placeholder');
+        })
+        .map((element) => element.outerHTML.slice(0, 80)));
+    expect(unnamed).toEqual([]);
 });
