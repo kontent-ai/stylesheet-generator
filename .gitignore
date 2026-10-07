@@ -135,3 +135,7 @@ dist
 **/styles.css.map
 **/styles.layered.css
 **/tailwind.css
+
+# Playwright
+/test-results/
+/playwright-report/
