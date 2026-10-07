@@ -633,6 +633,17 @@
   box-shadow: 0 0 0 2px var(--red), inset 0 0 3px var(--red);
 }
 
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--black);
+  text-align: left;
+  word-break: break-word;
+}
+
 .input-caption {
   display: block;
   margin-top: 8px;
@@ -1203,6 +1214,19 @@ input:checked ~ .slider:before {
 					<div class="option">Skoda</div>
 				</div>
 				<span class="input-caption invalid" id="car-error">Select a car.</span>
+			</div>
+		</div>
+		<hr>
+		<h2 id="form-field"><a href="#form-field">Label and textarea</a></h2>
+		<div class="row">
+			<div>
+				<label class="input-label" for="title-input">Title</label>
+				<input class="input" id="title-input" type="text" placeholder="Article title">
+			</div>
+			<div>
+				<label class="input-label" for="summary-input">Summary</label>
+				<textarea class="input" id="summary-input" rows="3" placeholder="A short summary" aria-describedby="summary-caption"></textarea>
+				<span class="input-caption" id="summary-caption">Up to 300 characters.</span>
 			</div>
 		</div>
 		<hr>
