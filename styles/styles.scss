@@ -1,4 +1,5 @@
 @use "sass:map";
+@forward "tokens";
 @use "tokens" as *;
 
 :root {
@@ -28,6 +29,13 @@
 }
 
 .custom-element, body, html {
+    font-family: var(--kontent-font-family);
+}
+
+// Opt-in page reset for custom elements and custom apps: <body class="custom-element-root">.
+// Removes the browser's default 8px body margin, so the content lines up inside the iframe.
+.custom-element-root {
+    margin: 0;
     font-family: var(--kontent-font-family);
 }
 

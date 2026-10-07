@@ -3,6 +3,16 @@
   "version": "1.1.0",
   "main": "styles/styles.css",
   "style": "styles/styles.css",
+  "sass": "styles/styles.scss",
+  "exports": {
+    ".": {
+      "sass": "./styles/styles.scss",
+      "style": "./styles/styles.css",
+      "default": "./styles/styles.css"
+    },
+    "./styles/*": "./styles/*",
+    "./package.json": "./package.json"
+  },
   "description": "Predefined CSS for styling Kontent.ai custom elements and tools in line with application UI.",
   "scripts": {
     "build": "sass --no-source-map styles/styles.layered.scss:styles/styles.layered.css styles/tailwind.scss:styles/tailwind.css && sass styles/styles.scss:styles/styles.css && node scripts/build-showcase.js",

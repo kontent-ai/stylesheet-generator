@@ -15,8 +15,10 @@ jobs:
           node-version: 'lts/*'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm i
+      - run: npm ci
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
       
       - run: npm publish --access=public
         if: ${{!github.event.release.prerelease}}
