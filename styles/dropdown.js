@@ -1,5 +1,8 @@
 /*
- * @kontent-ai/stylekit dropdown helper
+ * @kontent-ai/stylekit dropdown helper (for plain HTML pages)
+ *
+ * Don't use it on markup rendered by React, Vue, Svelte, etc.: it changes the DOM directly.
+ * Frameworks should follow the "Dropdown contract" in the README instead.
  *
  * Makes `.select` + `.options` + `.option` markup work as an accessible dropdown:
  * click or keyboard to open, arrow keys / Home / End to move, Enter or Space to pick,
