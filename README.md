@@ -31,6 +31,7 @@ Alternatively, you can link the CSS from `node_modules`:
 | `styles/tailwind.css` | You use Tailwind CSS v4 and want the palette as Tailwind colors. |
 | `styles/styles.scss`, `styles/_tokens.scss` | You use Sass and want the source or the palette map. |
 | `styles/dropdown.js` | Plain HTML pages that need the [dropdown](#dropdown) to work without a framework. |
+| `styles/fonts/` | The bundled Inter font and its license. `styles.css` loads it with a relative URL, so keep the folder next to the CSS. See [Font](#font). |
 
 ### Cascade layers
 
@@ -59,6 +60,8 @@ Import the stylekit into Tailwind's `components` layer, then import the theme fi
 - `tailwind.css` adds every palette color as a `kontent-*` Tailwind color: `bg-kontent-purple`, `text-kontent-red`, `border-kontent-midnight-blue`, … including `kontent-white`. These follow any override of the stylekit custom properties. Without `styles.css` they fall back to the default hex values, so the theme file also works on its own.
 
 The component classes (`.button`, `.input`, …) stay plain CSS; there is no Tailwind plugin.
+
+With the Vite plugin (`@tailwindcss/vite`), the bundled font loads as is. The standalone Tailwind CLI copies `styles.css` into its output without adjusting the font's relative URL, so copy `node_modules/@kontent-ai/stylekit/styles/fonts/` into a `fonts/` folder next to your output CSS.
 
 ### Less
 
@@ -106,7 +109,21 @@ The color classes are `red`, `crimson`, `green`, `blue`, `purple`, `orange`, `oc
 ## Global helpers
 
 - `.disabled`: can be added to any element (button, input, switch, checkbox, radio, dropdown…); sets `opacity` to 0.5 and disables pointer events.
-- Font: `html`, `body` and any `.custom-element` wrapper get `font-family: sans-serif`.
+- Font: `html`, `body` and any `.custom-element` wrapper get `font-family: var(--kontent-font-family)`, which is `Inter, sans-serif`. See [Font](#font).
+
+## Font
+
+The Kontent.ai app uses [Inter](https://rsms.me/inter/), and the stylekit ships it: `styles/fonts/InterVariable.woff2`, 56 kB, loaded with `@font-face` and `font-display: swap`. It's Inter 4.1, subset to Latin (including Central European characters, typographic punctuation, currency symbols and arrows), with weights 400 to 700 and the optical size fixed at the text cut. No font is loaded from a third-party CDN.
+
+To use a different font, override the custom property:
+
+```css
+:root { --kontent-font-family: "Your Font", sans-serif; }
+```
+
+If nothing uses Inter, the browser doesn't download the file.
+
+Inter is © The Inter Project Authors and licensed under the SIL Open Font License 1.1. The license ships in `styles/fonts/Inter-LICENSE.txt`; keep it with the font file if you copy the file elsewhere.
 
 ## Basic styles
 
@@ -523,6 +540,7 @@ Clone the repository and adjust the **styles.scss** file accordingly. The palett
 - Added namespaced `--kontent-*` aliases for every color custom property.
 - Added `styles/tailwind.css`, a Tailwind CSS v4 theme with the palette as `kontent-*` colors, plus instructions for using the stylekit with Tailwind, Less and Sass.
 - Moved the palette to `styles/_tokens.scss`, the single source for the custom properties, color classes and Tailwind theme.
+- Switched the font from `sans-serif` to Inter, the Kontent.ai app's font, bundled with the package (56 kB Latin subset, SIL Open Font License 1.1). Override it with `--kontent-font-family`.
 - Added an invalid state for `.input` and `.select` (`aria-invalid="true"` or `invalid`) and `.input-caption` / `.input-caption.invalid` for helper and error messages, matching the app's input alert state.
 - Documented the dropdown contract (classes, ARIA, keyboard) and added a React + TypeScript example component.
 - Added `styles/dropdown.js`, an accessible dropdown helper for plain HTML (keyboard, click outside to close, ARIA), and a focus style for keyboard-highlighted options.
