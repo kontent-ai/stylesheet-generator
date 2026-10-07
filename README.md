@@ -157,7 +157,7 @@ A round, color-filled button with a hover animation. Defaults to upper-case font
 
 ### .input
 
-Base class for all kinds of inputs, comes in a form of rounded box with hover effect.
+Base class for all kinds of inputs, comes in a form of rounded box with hover effect. Works on `<input>` and `<textarea>` (use `rows` for its height).
 
 #### Modifiers
 
@@ -172,6 +172,20 @@ Base class for all kinds of inputs, comes in a form of rounded box with hover ef
 ```html
 <input class="input" placeholder="Insert something" type="text">
 ```
+
+### .input-label
+
+A label above an `.input`, `.select` or textarea, 8px above it. Use a real `<label>` with `for`, so clicking it focuses the field.
+
+#### Usage example
+[![Button Click]](https://htmlpreview.github.io/?https://github.com/kontent-ai/stylesheet-generator/blob/main/styles/showcase.html#form-field)
+```html
+<label class="input-label" for="summary">Summary</label>
+<textarea class="input" id="summary" rows="3" aria-describedby="summary-caption"></textarea>
+<span class="input-caption" id="summary-caption">Up to 300 characters.</span>
+```
+
+For a dropdown, `<label>` can't point to a `<div>`. Use `<span class="input-label" id="car-label">` and `aria-labelledby="car-label"` on the `.select`.
 
 ### .input-caption and invalid state
 
@@ -545,6 +559,7 @@ Clone the repository and adjust the **styles.scss** file accordingly. The palett
 - Switched the font from `sans-serif` to Inter, the Kontent.ai app's font, bundled with the package (56 kB Latin subset, SIL Open Font License 1.1). Override it with `--kontent-font-family`.
 - Fixed the input placeholder style, which never applied because of a `:placeholder` typo. Placeholders are now `#6f6f6f` (the app's hint color) instead of the illegible `--light-grey` the README used to promise.
 - Added a visible keyboard focus ring (`#0093ff`, `--kontent-focus-color`) to inputs, dropdowns, buttons, switches, checkboxes and radios, matching the app.
+- Added `.input-label` for field labels, and documented `.input` on `<textarea>`.
 - Added an invalid state for `.input` and `.select` (`aria-invalid="true"` or `invalid`) and `.input-caption` / `.input-caption.invalid` for helper and error messages, matching the app's input alert state.
 - Documented the dropdown contract (classes, ARIA, keyboard) and added a React + TypeScript example component.
 - Added `styles/dropdown.js`, an accessible dropdown helper for plain HTML (keyboard, click outside to close, ARIA), and a focus style for keyboard-highlighted options.
