@@ -1,0 +1,30 @@
+@use "sass:map";
+// Single source of the stylekit palette. Every color here becomes a `--<name>` custom
+// property, a `--kontent-<name>` alias, a `.<name>` color class and a Tailwind color.
+$palette: (
+    "red": #db0000,
+    "green": #007f51,
+    "blue": #006cdc,
+    "purple": #5b4ff5,
+    "orange": #ff5733,
+    "burgundy": #500c4b,
+    "midnight-blue": #022049,
+    "ocean": #1b5b68,
+    "light-grey": #dcdcdc,
+    "dark-grey": #525252,
+    "grey": #a8a8a8,
+    "black": #000000,
+);
+
+// Custom properties that have no color class.
+$extra-properties: (
+    "white": #ffffff,
+);
+
+// Order in which the color class modifiers are generated.
+$color-class-order: "green", "red", "blue", "purple", "orange", "burgundy", "midnight-blue", "ocean", "light-grey", "dark-grey", "grey", "black";
+
+$colors: ();
+@each $name in $color-class-order {
+    $colors: map.merge($colors, ($name: var(--#{$name})));
+}

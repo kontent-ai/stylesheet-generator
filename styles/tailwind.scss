@@ -1,0 +1,12 @@
+// Tailwind CSS v4 theme: exposes the stylekit palette as `kontent-*` colors
+// (bg-kontent-purple, text-kontent-red, border-kontent-ocean, ...).
+// It follows overrides of the stylekit custom properties when styles.css is loaded too,
+// and falls back to the hex values when it isn't.
+@use "sass:map";
+@use "tokens" as *;
+
+@theme inline {
+    @each $name, $value in map.merge($palette, $extra-properties) {
+        --color-kontent-#{$name}: var(--kontent-#{$name}, #{$value});
+    }
+}
