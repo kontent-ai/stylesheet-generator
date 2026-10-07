@@ -84,7 +84,7 @@ The `pkg:` URLs need Sass 1.71+ with the Node.js package importer. Otherwise, ad
 
 ## Colors
 
-There are twelve base colors defined in the CSS, wrapped in a matching number of color classes of the same name (minus the CSS custom property syntax `--`). These are as follows:
+There are thirteen base colors defined in the CSS, wrapped in a matching number of color classes of the same name (minus the CSS custom property syntax `--`). These are as follows:
 
 ![color palette](assets/palette.png)
 
@@ -98,7 +98,7 @@ If you want to use any of the colors in your own class, use CSS `var()` function
 
 Each color is defined as a short custom property (`--red`), which the stylekit classes use, and as a namespaced alias (`--kontent-red`). Use the `--kontent-*` aliases in your own code: they always point to the short names, so overriding `--red` to adjust the stylekit also changes `--kontent-red`, and they are the names that will stay if the short ones are ever removed.
 
-The color classes are `red`, `green`, `blue`, `purple`, `orange`, `ocean`, `midnight-blue`, `burgundy`, `light-grey`, `grey`, `dark-grey` and `black`. A `--white` (`#ffffff`) custom property is also defined for use in your own styles, but there is no `white` color class.
+The color classes are `red`, `crimson`, `green`, `blue`, `purple`, `orange`, `ocean`, `midnight-blue`, `burgundy`, `light-grey`, `grey`, `dark-grey` and `black`. A `--white` (`#ffffff`) custom property is also defined for use in your own styles, but there is no `white` color class.
 
 > [!NOTE]  
 > Class names do not correspond to their CSS color counterparts. All colors are custom, matching the Kontent.ai application interface.
@@ -492,7 +492,7 @@ Clone the repository and adjust the **styles.scss** file accordingly. The palett
 
 ### 1.1.0
 
-- Removed the `crimson` color modifiers. `--crimson` was never defined, so they produced invalid CSS.
+- Defined `--crimson` as `#cf3a4e`, the Kontent.ai brand's primary red. The `crimson` modifiers existed in 1.0.0 but referenced an undefined property, so they produced invalid CSS; they now work.
 - Defined `--white`, so `.button.secondary` now gets the white background it was documented to have.
 - Added `styles/styles.layered.css`: the same styles inside `@layer stylekit`, so your own CSS always wins. The default `styles.css` is unchanged and stays unlayered.
 - Added namespaced `--kontent-*` aliases for every color custom property.
