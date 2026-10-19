@@ -14,6 +14,10 @@
     "./package.json": "./package.json"
   },
   "description": "Predefined CSS for styling Kontent.ai custom elements and tools in line with application UI.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kontent-ai/stylesheet-generator"
+  },
   "scripts": {
     "build": "sass --no-source-map styles/styles.layered.scss:styles/styles.layered.css styles/tailwind.scss:styles/tailwind.css && sass styles/styles.scss:styles/styles.css && node scripts/build-showcase.js",
     "test": "node scripts/check-css.js && playwright test"
